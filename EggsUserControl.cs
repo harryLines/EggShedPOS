@@ -77,44 +77,53 @@ namespace AbbeyFarmPOS
             string price = row.Cells[1].Value.ToString();
             decimal floatPrice = decimal.Parse(price); 
             decimal priceDec = decimal.Parse(price);
-            priceDec = Math.Round(priceDec, 2); //this section gets the itemID and price of the row clicked to be assigned to variables
-
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-            con.Open();
-            Random random = new Random();
-            
-
-            string query1 = $"SELECT ItemQuantity FROM tblCurrentOrder WHERE ItemID = '{itemID}'"; //selects the item quantity of the item selected
-            SqlDataAdapter SDA1 = new SqlDataAdapter(query1, con);
-            DataTable StockCount = new DataTable();
-            SDA1.Fill(StockCount);
-
-
-            eggDG.CurrentRow.Selected = true;
-
-            if (StockCount.Rows.Count == 0)
+            if (int.Parse(row.Cells[2].Value.ToString()) == 0)
+            {
+                MessageBox.Show("Out Of Stock", "Sorry This Item Is Out Of Stock", MessageBoxButtons.OK);
+            }
+            else
             {
 
-                string query2 = $"INSERT INTO tblCurrentOrder VALUES('{itemID}', '{frmMain.OrderID}', 1, '{priceDec}' ); "; //inserts a new record for an added item, if it is the first time it has been added
 
-                SqlCommand myCommand = new SqlCommand(query2, con);
-                myCommand.ExecuteNonQuery();
 
+                priceDec = Math.Round(priceDec, 2); //this section gets the itemID and price of the row clicked to be assigned to variables
+
+                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+                con.Open();
+                Random random = new Random();
+
+
+                string query1 = $"SELECT ItemQuantity FROM tblCurrentOrder WHERE ItemID = '{itemID}'"; //selects the item quantity of the item selected
+                SqlDataAdapter SDA1 = new SqlDataAdapter(query1, con);
+                DataTable StockCount = new DataTable();
+                SDA1.Fill(StockCount);
+
+
+                eggDG.CurrentRow.Selected = true;
+
+                if (StockCount.Rows.Count == 0)
+                {
+
+                    string query2 = $"INSERT INTO tblCurrentOrder VALUES('{itemID}', '{frmMain.OrderID}', 1, '{priceDec}' ); "; //inserts a new record for an added item, if it is the first time it has been added
+
+                    SqlCommand myCommand = new SqlCommand(query2, con);
+                    myCommand.ExecuteNonQuery();
+
+                }
+                else if (StockCount.Rows.Count > 0)
+                {
+                    int StockInt = Convert.ToInt32((StockCount.Rows[0]["ItemQuantity"])); //selects the item quantity that is in the order
+                    decimal totalPrice = (floatPrice * StockInt) + floatPrice; //calculates the total price of the row, based on how many of that item have been selected
+                    totalPrice = Math.Round(totalPrice, 2);
+                    string query3 = $"UPDATE tblCurrentOrder SET ItemQuantity = '{StockInt + 1}', TotalPrice = '{totalPrice}' WHERE ItemID = {itemID};"; //updates the record if item has already been added before
+                    SqlCommand myCommand = new SqlCommand(query3, con);
+                    myCommand.ExecuteNonQuery();
+                }
+
+
+
+                con.Close();
             }
-            else if (StockCount.Rows.Count > 0)
-            {
-                int StockInt = Convert.ToInt32((StockCount.Rows[0]["ItemQuantity"])); //selects the item quantity that is in the order
-                decimal totalPrice = (floatPrice * StockInt) + floatPrice; //calculates the total price of the row, based on how many of that item have been selected
-                totalPrice = Math.Round(totalPrice, 2);
-                string query3 = $"UPDATE tblCurrentOrder SET ItemQuantity = '{StockInt + 1}', TotalPrice = '{totalPrice}' WHERE ItemID = {itemID};"; //updates the record if item has already been added before
-                SqlCommand myCommand = new SqlCommand(query3, con);
-                myCommand.ExecuteNonQuery();
-            }
-            
-
-
-            con.Close();
-
         }
 
         private void eggDG_CellContentClick(object sender, DataGridViewCellEventArgs e)

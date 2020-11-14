@@ -87,5 +87,12 @@ namespace AbbeyFarmPOS
             
 
         }
+
+        private void btnAnalysis_Click(object sender, EventArgs e)
+        {
+            frmAnalysis frmAnalysis = new frmAnalysis();
+            this.Hide();
+            frmAnalysis.Show();
+        }
     }
 }

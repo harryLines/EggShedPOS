@@ -117,9 +117,30 @@ namespace AbbeyFarmPOS
             myCommandInsert.ExecuteNonQuery();
 
 
+            string queryWholeTable = $"SELECT * FROM tblCurrentOrder;";
+            SDA2 = new SqlDataAdapter(queryWholeTable, con);
+            DataTable CurrentOrderDT = new DataTable();
+            SDA2.Fill(CurrentOrderDT);
+
+
+
+            for (int i = CurrentOrderDT.Rows.Count; i!=0; i--)
+            {
+                string itemIDStr = CurrentOrderDT.Rows[i-1]["ItemID"].ToString();
+                int itemID = int.Parse(itemIDStr);
+                string itemQuantityStr = CurrentOrderDT.Rows[i-1]["ItemQuantity"].ToString();
+                int itemQuantity = int.Parse(itemQuantityStr);
+                string query4 = $"UPDATE tblItems SET QuantitySold = QuantitySold + '{itemQuantity}', QuantityInStock = QuantityInStock - '{itemQuantity}' WHERE ItemID = '{itemID}';"; //updates the required fields in the items table
+                SqlCommand myCommandUpdate = new SqlCommand(query4, con);
+                myCommandUpdate.ExecuteNonQuery();
+
+            }
+
+
             string query3 = $"DELETE FROM tblCurrentOrder;"; //deletes the now processed order from the current order table
             SqlCommand myCommandDelete = new SqlCommand(query3, con);
             myCommandDelete.ExecuteNonQuery();
+
             con.Close();
             frmMain frmMain = new frmMain();
             frmMain.Show();
@@ -137,12 +158,7 @@ namespace AbbeyFarmPOS
             DataTable CustomerExistsDT = new DataTable();
             SDA2.Fill(CustomerExistsDT);
 
-            if (CustomerExistsDT.Rows.Count == 1)
-            {
-                
-
-
-            } else
+            if (CustomerExistsDT.Rows.Count == 0)
             {
                 string query = $"INSERT INTO tblCustomers (EmailAddress, Forename, Surname) VALUES('{emailAddressTxt.Text}', '{forenameTxt.Text}', '{surnameTxt.Text}'); ";
                 SqlCommand newCustomer = new SqlCommand(query, con);
@@ -162,7 +178,7 @@ namespace AbbeyFarmPOS
             int orderIDInt = int.Parse(orderIDStr);
 
             char[] Char = { '£' };
-            string totalPriceStr = lblTotalAmount.Text.TrimStart(Char); //removes the pound sign from the price, so it can be used parsed to a float value
+            string totalPriceStr = lblTotalAmount.Text.TrimStart(Char); //removes the pound sign from the price, so it can be parsed to a float value
 
             string query2 = $"INSERT INTO tblReceipts (OrderID, TotalPrice, EmailAddress, DateAndTime) VALUES('{orderIDInt}', '{float.Parse(totalPriceStr)}', '{emailAddressTxt.Text}', '{DateTime.Now}'); ";
             SqlCommand myCommandInsert = new SqlCommand(query2, con);
