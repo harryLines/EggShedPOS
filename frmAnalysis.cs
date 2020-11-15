@@ -44,12 +44,16 @@ namespace AbbeyFarmPOS
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            DataTable ItemAnalysisModifiedDT = new DataTable();
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlDataAdapter SDA = new SqlDataAdapter();
+
             string sortByMode = "ASC";
 
-            if (sortByComboBox.SelectedIndex == -1)
+            if (sortByComboBox.SelectedIndex == -1 | sortByComboBox.SelectedIndex == 0)
             {
                 sortByMode = "";
-            }
+            } 
             else
             {
 
@@ -63,26 +67,13 @@ namespace AbbeyFarmPOS
                 }
                 else if (sortByComboBox.SelectedItem.ToString() == "Out Of Stock")
                 {
-                    sortByMode = "AND QuantityInStock = 0";
+                    sortByMode = "AND QuantityInStock=0";
                 }
 
             }
 
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-            string query1 = $"SELECT * FROM tblItems {sortByMode};";
-            SqlDataAdapter SDA = new SqlDataAdapter();
-            SDA = new SqlDataAdapter(query1, con);
-            DataTable ItemAnalysisDT = new DataTable();
-            SDA.Fill(ItemAnalysisDT);
 
-            ItemAnalysisDT.Columns.Add("TotalCash", typeof(float));
-
-            foreach (DataRow row in ItemAnalysisDT.Rows)
-            {
-                row["TotalCash"] = Math.Round((float.Parse((row["Price"]).ToString())) * (float.Parse((row["QuantitySold"]).ToString())),2);
-            }
-
-            string boxesChecked = "ItemType =";
+            string boxesChecked = "ItemType=";
 
             int boxesCheckedCount = 0;
 
@@ -95,7 +86,8 @@ namespace AbbeyFarmPOS
             {
                 boxesChecked += " OR ItemType='Bread'";
                 boxesCheckedCount += 1;
-            } else if (checkboxBread.Checked == true)
+            }
+            else if (checkboxBread.Checked == true)
             {
                 boxesChecked += "'Bread'";
                 boxesCheckedCount += 1;
@@ -104,7 +96,8 @@ namespace AbbeyFarmPOS
             {
                 boxesChecked += " OR ItemType='Milk'";
                 boxesCheckedCount += 1;
-            } else if (checkboxMilk.Checked == true)
+            }
+            else if (checkboxMilk.Checked == true)
             {
                 boxesChecked += "'Milk'";
                 boxesCheckedCount += 1;
@@ -133,12 +126,10 @@ namespace AbbeyFarmPOS
 
             if (boxesCheckedCount > 0)
             {
-                string query2 = $"SELECT * FROM tblItems WHERE {boxesChecked}{sortByMode};";
-                SqlDataAdapter SDA2 = new SqlDataAdapter();
+                string query2 = $"SELECT * FROM tblItems WHERE ({boxesChecked}){sortByMode};";
                 SDA = new SqlDataAdapter(query2, con);
-                DataTable ItemAnalysisModifiedDT = new DataTable();
+                
                 SDA.Fill(ItemAnalysisModifiedDT);
-
                 ItemAnalysisModifiedDT.Columns.Add("TotalCash", typeof(float));
 
                 foreach (DataRow row in ItemAnalysisModifiedDT.Rows)
@@ -148,14 +139,15 @@ namespace AbbeyFarmPOS
 
                 DGItemsAnalysis.DataSource = ItemAnalysisModifiedDT;
 
-            } else
+            }
+            else
             {
-                DataTable ItemAnalysisModifiedDT = new DataTable();
-                boxesChecked = ""; 
+                ItemAnalysisModifiedDT = null;
+                boxesChecked = "";
                 SDA.Fill(ItemAnalysisModifiedDT);
                 DGItemsAnalysis.DataSource = ItemAnalysisModifiedDT;
             }
-            
+
 
         }
 
@@ -166,7 +158,78 @@ namespace AbbeyFarmPOS
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Random random = new System.Random(); //initializing a new "random" object, allowing for random numbers to be created
+            int randomNum = random.Next(10000, 99999);
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
 
+
+            string query = $"SELECT * FROM dbo.tblItems WHERE ItemID = {randomNum}"; //this string variable must be intialized to equal our SQL query
+
+
+            SqlDataAdapter SDA = new SqlDataAdapter(query, con);
+            DataTable ItemsDT = new DataTable();
+            while (ItemsDT.Rows.Count != 0) // this while loop keeps assigning a random number to the UserID until it is one that has not been used
+            {
+                randomNum = random.Next(10000, 99999); //the randomNum variable is assigned a random number between 10000 and 99999 (to preserve 5 digit format)
+                query = $"SELECT * FROM dbo.tblLogin WHERE UserID = {randomNum}"; //selects all from the rows which userID is equal to our random number
+                SDA.Fill(ItemsDT); //fills the c# datatable with this data (if any are found)
+            }
+
+            if (comboBoxItemType.SelectedIndex == -1 | txtBoxItemName == null | txtBoxPrice == null | txtBoxQuantityInStock == null | txtBoxUserID == null | txtBoxPassword == null)
+            {
+                MessageBox.Show("There are empty fields - all fields must contain a value to create an item", "Item Creation Error", MessageBoxButtons.OK);
+            }
+            else
+            {
+                string query3 = $"SELECT * FROM dbo.tblLogin WHERE UserID = '{txtBoxUserID.Text.Trim()}' AND Password = '{txtBoxPassword.Text.Trim()}'";  //this query selects all records that contain this matching login
+                SqlDataAdapter SDA2 = new SqlDataAdapter(query3, con);
+                DataTable UsersDT = new DataTable();
+
+                if ((txtBoxUserID.Text != "") & (txtBoxPassword.Text != "")) // checks the user has entered information into both boxs
+                {
+                    SDA2.Fill(UsersDT);
+                    if (UsersDT.Rows.Count == 1) //if a record is found with this username and password, the item creation is processed
+                    {
+
+                        string queryItemExistsCheck = $"SELECT * FROM dbo.tblItems WHERE ItemName = '{txtBoxItemName.Text.Trim()}'";  //this query selects all records that contain this matching login
+                        SqlDataAdapter SDA3 = new SqlDataAdapter(queryItemExistsCheck, con);
+                        DataTable ItemExistsCheckDT = new DataTable();
+                        SDA3.Fill(ItemExistsCheckDT);
+
+                        if (ItemExistsCheckDT.Rows.Count == 0) //if a record is found with this name already, the item creation is denied
+                        {
+
+                            string query2 = $"INSERT INTO tblItems (ItemID, Price, QuantityInStock, ItemName, ItemType) VALUES('{randomNum}', '{float.Parse(txtBoxPrice.Text)}', '{int.Parse(txtBoxQuantityInStock.Text)}', '{txtBoxItemName.Text}', '{comboBoxItemType.SelectedItem.ToString()}'); "; //inserts a new record into the "TblLogin" database table
+                            SqlCommand myCommand = new SqlCommand(query2, con);
+                            myCommand.ExecuteNonQuery();
+                            txtBoxItemName.Text = "";
+                            txtBoxPrice.Text = "";
+                            txtBoxQuantityInStock.Text = "";
+                            comboBoxItemType.SelectedIndex = -1;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Item Already Exists", "Duplicate Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Login", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);  //displays an error if the login is invalid
+                    }
+                } else
+                {
+                    MessageBox.Show("Invalid Login", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);  //displays an error if the login is invalid
+                }
+
+            }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login frmLogin = new Login(); //if the "back" button is pressed, this form is hidden and the login form is once again displayed
+            frmLogin.Show();
         }
     }
 }
