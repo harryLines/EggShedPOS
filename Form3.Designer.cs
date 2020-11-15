@@ -98,7 +98,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label3.Location = new System.Drawing.Point(70, 140);
+            this.label3.Location = new System.Drawing.Point(16, 139);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 22);
             this.label3.TabIndex = 19;
@@ -108,9 +108,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel1.Location = new System.Drawing.Point(160, 161);
+            this.panel1.Location = new System.Drawing.Point(106, 160);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(100, 1);
+            this.panel1.Size = new System.Drawing.Size(154, 1);
             this.panel1.TabIndex = 18;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -119,10 +119,11 @@
             this.passwordTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.passwordTextBox.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
             this.passwordTextBox.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.passwordTextBox.Location = new System.Drawing.Point(160, 140);
+            this.passwordTextBox.Location = new System.Drawing.Point(106, 139);
             this.passwordTextBox.MaxLength = 25;
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(100, 19);
+            this.passwordTextBox.PasswordChar = '•';
+            this.passwordTextBox.Size = new System.Drawing.Size(154, 19);
             this.passwordTextBox.TabIndex = 20;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

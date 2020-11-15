@@ -72,7 +72,7 @@ namespace AbbeyFarmPOS
 
 
             Random random = new System.Random(); //initializing a new "random" object, allowing for random numbers to be created
-            int randomNum = 0;
+            int randomNum = random.Next(10000, 99999);
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
 
@@ -91,7 +91,6 @@ namespace AbbeyFarmPOS
         
 
 
-            randomNum = random.Next(10000, 99999);
             string query2 = $"INSERT INTO tblLogin (UserID, Password, Forename, Surname, isAdmin) VALUES('{randomNum}', '{passwordTxt.Text}', '{forenameTxt.Text}', '{surnameTxt.Text}', '{isAdminCheckBox.Checked}'); "; //inserts a new record into the "TblLogin" database table
             SqlCommand myCommand = new SqlCommand(query2, con);
             myCommand.ExecuteNonQuery();
