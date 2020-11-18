@@ -182,7 +182,7 @@ namespace AbbeyFarmPOS
             }
             else
             {
-                string query3 = $"SELECT * FROM dbo.tblLogin WHERE UserID = '{txtBoxUserID.Text.Trim()}' AND Password = '{txtBoxPassword.Text.Trim()}'";  //this query selects all records that contain this matching login
+                string query3 = $"SELECT * FROM dbo.tblLogin WHERE UserID = '{txtBoxUserID.Text.Trim()}' AND Password = '{txtBoxPassword.Text.Trim()}' AND IsAdmin = True";  //this query selects all records that contain this matching login
                 SqlDataAdapter SDA2 = new SqlDataAdapter(query3, con);
                 DataTable UsersDT = new DataTable();
 
@@ -200,7 +200,7 @@ namespace AbbeyFarmPOS
                         if (ItemExistsCheckDT.Rows.Count == 0) //if a record is found with this name already, the item creation is denied
                         {
 
-                            string query2 = $"INSERT INTO tblItems (ItemID, Price, QuantityInStock, ItemName, ItemType) VALUES('{randomNum}', '{float.Parse(txtBoxPrice.Text)}', '{int.Parse(txtBoxQuantityInStock.Text)}', '{txtBoxItemName.Text}', '{comboBoxItemType.SelectedItem.ToString()}'); "; //inserts a new record into the "TblLogin" database table
+                            string query2 = $"INSERT INTO tblItems (ItemID, Price, QuantityInStock, ItemName, ItemType) VALUES('{randomNum}', '{float.Parse(txtBoxPrice.Text)}', '{int.Parse(txtBoxQuantityInStock.Text)}', '{txtBoxItemName.Text}', '{comboBoxItemType.SelectedItem.ToString()}'); "; //inserts a new record into the "TblItems" database table
                             SqlCommand myCommand = new SqlCommand(query2, con);
                             myCommand.ExecuteNonQuery();
                             txtBoxItemName.Text = "";
@@ -230,6 +230,30 @@ namespace AbbeyFarmPOS
             this.Hide();
             Login frmLogin = new Login(); //if the "back" button is pressed, this form is hidden and the login form is once again displayed
             frmLogin.Show();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+
+            string query = $"UPDATE tblItems SET QuantityInStock = QuantityInStock + {numericUpDownRestock.Value} WHERE ItemID = {int.Parse(txtBoxItemIDRestock.Text)}"; //updates the stock count of the item matching the input item ID, to the current value plus the value selected in the updown number box
+            SqlCommand myCommand = new SqlCommand(query, con);
+            myCommand.ExecuteNonQuery();
+
+            lblItemRestocked.Visible = true;
+            itemRestockedTimer.Enabled = true;
+
+            numericUpDownRestock.Value = 0;
+            txtBoxItemIDRestock.Text = "";
+
+
+        }
+
+        private void timerRestockTick(object sender, EventArgs e)
+        {
+            lblItemRestocked.Visible = false;
+            itemRestockedTimer.Enabled = false;
         }
     }
 }

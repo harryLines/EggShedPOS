@@ -30,10 +30,17 @@ namespace AbbeyFarmPOS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnalysis));
             this.btnExit = new System.Windows.Forms.Button();
             this.DGItemsAnalysis = new System.Windows.Forms.DataGridView();
+            this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuantityInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.abbeyFarmDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.abbeyFarmDBDataSet = new AbbeyFarmPOS.AbbeyFarmDBDataSet();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -64,17 +71,21 @@ namespace AbbeyFarmPOS
             this.label5 = new System.Windows.Forms.Label();
             this.txtBoxPassword = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuantityInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnBack = new System.Windows.Forms.Button();
+            this.btnRestock = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtBoxItemIDRestock = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDownRestock = new System.Windows.Forms.NumericUpDown();
+            this.lblItemRestocked = new System.Windows.Forms.Label();
+            this.itemRestockedTimer = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGItemsAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestock)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExit
@@ -114,6 +125,63 @@ namespace AbbeyFarmPOS
             this.DGItemsAnalysis.Size = new System.Drawing.Size(500, 500);
             this.DGItemsAnalysis.TabIndex = 21;
             // 
+            // ItemID
+            // 
+            this.ItemID.DataPropertyName = "ItemID";
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ItemID.HeaderText = "ItemID";
+            this.ItemID.Name = "ItemID";
+            this.ItemID.ReadOnly = true;
+            this.ItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ItemID.Width = 50;
+            // 
+            // itemName
+            // 
+            this.itemName.DataPropertyName = "ItemName";
+            this.itemName.HeaderText = "Item Name";
+            this.itemName.Name = "itemName";
+            this.itemName.ReadOnly = true;
+            this.itemName.Width = 194;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "QuantitySold";
+            this.Quantity.HeaderText = "Quantity Sold";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            this.Quantity.Width = 50;
+            // 
+            // Price
+            // 
+            this.Price.HeaderText = "Price";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 65;
+            // 
+            // TotalCash
+            // 
+            this.TotalCash.DataPropertyName = "TotalCash";
+            this.TotalCash.HeaderText = "Total Cash (£)";
+            this.TotalCash.Name = "TotalCash";
+            this.TotalCash.ReadOnly = true;
+            this.TotalCash.Width = 60;
+            // 
+            // ItemType
+            // 
+            this.ItemType.HeaderText = "Item Type";
+            this.ItemType.Name = "ItemType";
+            this.ItemType.ReadOnly = true;
+            this.ItemType.Visible = false;
+            // 
+            // QuantityInStock
+            // 
+            this.QuantityInStock.DataPropertyName = "QuantityInStock";
+            this.QuantityInStock.HeaderText = "In Stock";
+            this.QuantityInStock.Name = "QuantityInStock";
+            this.QuantityInStock.ReadOnly = true;
+            this.QuantityInStock.Width = 40;
+            // 
             // abbeyFarmDBDataSetBindingSource
             // 
             this.abbeyFarmDBDataSetBindingSource.DataSource = this.abbeyFarmDBDataSet;
@@ -129,7 +197,7 @@ namespace AbbeyFarmPOS
             this.btnRefresh.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(88, 375);
+            this.btnRefresh.Location = new System.Drawing.Point(88, 366);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(190, 46);
             this.btnRefresh.TabIndex = 28;
@@ -239,7 +307,7 @@ namespace AbbeyFarmPOS
             "Milk",
             "Spread",
             "Honey"});
-            this.comboBoxItemType.Location = new System.Drawing.Point(887, 524);
+            this.comboBoxItemType.Location = new System.Drawing.Point(886, 451);
             this.comboBoxItemType.Name = "comboBoxItemType";
             this.comboBoxItemType.Size = new System.Drawing.Size(238, 47);
             this.comboBoxItemType.TabIndex = 36;
@@ -249,7 +317,7 @@ namespace AbbeyFarmPOS
             this.btnEnter.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnter.Location = new System.Drawing.Point(1136, 524);
+            this.btnEnter.Location = new System.Drawing.Point(1135, 451);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(100, 46);
             this.btnEnter.TabIndex = 37;
@@ -260,7 +328,7 @@ namespace AbbeyFarmPOS
             // PWLine
             // 
             this.PWLine.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.PWLine.Location = new System.Drawing.Point(886, 346);
+            this.PWLine.Location = new System.Drawing.Point(885, 273);
             this.PWLine.Name = "PWLine";
             this.PWLine.Size = new System.Drawing.Size(316, 1);
             this.PWLine.TabIndex = 52;
@@ -270,7 +338,7 @@ namespace AbbeyFarmPOS
             this.lblForename.AutoSize = true;
             this.lblForename.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblForename.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.lblForename.Location = new System.Drawing.Point(881, 285);
+            this.lblForename.Location = new System.Drawing.Point(880, 212);
             this.lblForename.Name = "lblForename";
             this.lblForename.Size = new System.Drawing.Size(136, 29);
             this.lblForename.TabIndex = 51;
@@ -281,7 +349,7 @@ namespace AbbeyFarmPOS
             this.txtBoxItemName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBoxItemName.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxItemName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtBoxItemName.Location = new System.Drawing.Point(884, 319);
+            this.txtBoxItemName.Location = new System.Drawing.Point(883, 246);
             this.txtBoxItemName.MaxLength = 50;
             this.txtBoxItemName.Name = "txtBoxItemName";
             this.txtBoxItemName.Size = new System.Drawing.Size(318, 28);
@@ -291,7 +359,7 @@ namespace AbbeyFarmPOS
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel2.Location = new System.Drawing.Point(885, 281);
+            this.panel2.Location = new System.Drawing.Point(884, 208);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(100, 1);
             this.panel2.TabIndex = 58;
@@ -301,7 +369,7 @@ namespace AbbeyFarmPOS
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label2.Location = new System.Drawing.Point(885, 222);
+            this.label2.Location = new System.Drawing.Point(884, 149);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 29);
             this.label2.TabIndex = 57;
@@ -312,7 +380,7 @@ namespace AbbeyFarmPOS
             this.txtBoxPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBoxPrice.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtBoxPrice.Location = new System.Drawing.Point(885, 254);
+            this.txtBoxPrice.Location = new System.Drawing.Point(884, 181);
             this.txtBoxPrice.MaxLength = 50;
             this.txtBoxPrice.Name = "txtBoxPrice";
             this.txtBoxPrice.Size = new System.Drawing.Size(102, 28);
@@ -323,7 +391,7 @@ namespace AbbeyFarmPOS
             this.lblAddNewUser.AutoSize = true;
             this.lblAddNewUser.Font = new System.Drawing.Font("Trebuchet MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddNewUser.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.lblAddNewUser.Location = new System.Drawing.Point(881, 144);
+            this.lblAddNewUser.Location = new System.Drawing.Point(880, 71);
             this.lblAddNewUser.Name = "lblAddNewUser";
             this.lblAddNewUser.Size = new System.Drawing.Size(340, 61);
             this.lblAddNewUser.TabIndex = 60;
@@ -332,7 +400,7 @@ namespace AbbeyFarmPOS
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel3.Location = new System.Drawing.Point(1085, 281);
+            this.panel3.Location = new System.Drawing.Point(1084, 208);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(69, 1);
             this.panel3.TabIndex = 62;
@@ -342,7 +410,7 @@ namespace AbbeyFarmPOS
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label3.Location = new System.Drawing.Point(1001, 222);
+            this.label3.Location = new System.Drawing.Point(1000, 149);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(235, 29);
             this.label3.TabIndex = 61;
@@ -353,7 +421,7 @@ namespace AbbeyFarmPOS
             this.txtBoxQuantityInStock.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBoxQuantityInStock.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxQuantityInStock.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtBoxQuantityInStock.Location = new System.Drawing.Point(1085, 254);
+            this.txtBoxQuantityInStock.Location = new System.Drawing.Point(1084, 181);
             this.txtBoxQuantityInStock.MaxLength = 50;
             this.txtBoxQuantityInStock.Name = "txtBoxQuantityInStock";
             this.txtBoxQuantityInStock.Size = new System.Drawing.Size(71, 28);
@@ -364,7 +432,7 @@ namespace AbbeyFarmPOS
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.Location = new System.Drawing.Point(883, 491);
+            this.label1.Location = new System.Drawing.Point(882, 418);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(126, 29);
             this.label1.TabIndex = 64;
@@ -373,7 +441,7 @@ namespace AbbeyFarmPOS
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel1.Location = new System.Drawing.Point(887, 411);
+            this.panel1.Location = new System.Drawing.Point(886, 338);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(316, 1);
             this.panel1.TabIndex = 66;
@@ -383,7 +451,7 @@ namespace AbbeyFarmPOS
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label4.Location = new System.Drawing.Point(882, 350);
+            this.label4.Location = new System.Drawing.Point(881, 277);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(170, 29);
             this.label4.TabIndex = 65;
@@ -394,7 +462,7 @@ namespace AbbeyFarmPOS
             this.txtBoxUserID.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBoxUserID.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxUserID.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtBoxUserID.Location = new System.Drawing.Point(885, 384);
+            this.txtBoxUserID.Location = new System.Drawing.Point(884, 311);
             this.txtBoxUserID.MaxLength = 50;
             this.txtBoxUserID.Name = "txtBoxUserID";
             this.txtBoxUserID.Size = new System.Drawing.Size(318, 28);
@@ -403,7 +471,7 @@ namespace AbbeyFarmPOS
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel4.Location = new System.Drawing.Point(887, 476);
+            this.panel4.Location = new System.Drawing.Point(886, 403);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(316, 1);
             this.panel4.TabIndex = 69;
@@ -413,7 +481,7 @@ namespace AbbeyFarmPOS
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.Location = new System.Drawing.Point(882, 415);
+            this.label5.Location = new System.Drawing.Point(881, 342);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(205, 29);
             this.label5.TabIndex = 68;
@@ -424,7 +492,7 @@ namespace AbbeyFarmPOS
             this.txtBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBoxPassword.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxPassword.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtBoxPassword.Location = new System.Drawing.Point(885, 449);
+            this.txtBoxPassword.Location = new System.Drawing.Point(884, 376);
             this.txtBoxPassword.MaxLength = 50;
             this.txtBoxPassword.Name = "txtBoxPassword";
             this.txtBoxPassword.PasswordChar = '•';
@@ -442,63 +510,6 @@ namespace AbbeyFarmPOS
             this.label6.TabIndex = 71;
             this.label6.Text = "Sort By:";
             // 
-            // ItemID
-            // 
-            this.ItemID.DataPropertyName = "ItemID";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-            this.ItemID.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ItemID.HeaderText = "ItemID";
-            this.ItemID.Name = "ItemID";
-            this.ItemID.ReadOnly = true;
-            this.ItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ItemID.Width = 50;
-            // 
-            // itemName
-            // 
-            this.itemName.DataPropertyName = "ItemName";
-            this.itemName.HeaderText = "Item Name";
-            this.itemName.Name = "itemName";
-            this.itemName.ReadOnly = true;
-            this.itemName.Width = 194;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "QuantitySold";
-            this.Quantity.HeaderText = "Quantity Sold";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Width = 50;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 65;
-            // 
-            // TotalCash
-            // 
-            this.TotalCash.DataPropertyName = "TotalCash";
-            this.TotalCash.HeaderText = "Total Cash (£)";
-            this.TotalCash.Name = "TotalCash";
-            this.TotalCash.ReadOnly = true;
-            this.TotalCash.Width = 60;
-            // 
-            // ItemType
-            // 
-            this.ItemType.HeaderText = "Item Type";
-            this.ItemType.Name = "ItemType";
-            this.ItemType.ReadOnly = true;
-            this.ItemType.Visible = false;
-            // 
-            // QuantityInStock
-            // 
-            this.QuantityInStock.DataPropertyName = "QuantityInStock";
-            this.QuantityInStock.HeaderText = "In Stock";
-            this.QuantityInStock.Name = "QuantityInStock";
-            this.QuantityInStock.ReadOnly = true;
-            this.QuantityInStock.Width = 40;
-            // 
             // btnBack
             // 
             this.btnBack.BackColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -512,11 +523,127 @@ namespace AbbeyFarmPOS
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // btnRestock
+            // 
+            this.btnRestock.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnRestock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestock.Location = new System.Drawing.Point(239, 476);
+            this.btnRestock.Name = "btnRestock";
+            this.btnRestock.Size = new System.Drawing.Size(120, 47);
+            this.btnRestock.TabIndex = 73;
+            this.btnRestock.Text = "Restock";
+            this.btnRestock.UseVisualStyleBackColor = false;
+            this.btnRestock.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label7.Location = new System.Drawing.Point(12, 417);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(99, 27);
+            this.label7.TabIndex = 74;
+            this.label7.Text = "Restock:";
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel5.Location = new System.Drawing.Point(12, 515);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(100, 1);
+            this.panel5.TabIndex = 76;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label8.Location = new System.Drawing.Point(12, 456);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(94, 29);
+            this.label8.TabIndex = 75;
+            this.label8.Text = "Item ID";
+            // 
+            // txtBoxItemIDRestock
+            // 
+            this.txtBoxItemIDRestock.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBoxItemIDRestock.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxItemIDRestock.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtBoxItemIDRestock.Location = new System.Drawing.Point(12, 488);
+            this.txtBoxItemIDRestock.MaxLength = 50;
+            this.txtBoxItemIDRestock.Name = "txtBoxItemIDRestock";
+            this.txtBoxItemIDRestock.Size = new System.Drawing.Size(102, 28);
+            this.txtBoxItemIDRestock.TabIndex = 77;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label9.Location = new System.Drawing.Point(135, 456);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(80, 29);
+            this.label9.TabIndex = 78;
+            this.label9.Text = "Count";
+            // 
+            // numericUpDownRestock
+            // 
+            this.numericUpDownRestock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownRestock.Location = new System.Drawing.Point(140, 485);
+            this.numericUpDownRestock.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.numericUpDownRestock.Name = "numericUpDownRestock";
+            this.numericUpDownRestock.Size = new System.Drawing.Size(77, 31);
+            this.numericUpDownRestock.TabIndex = 81;
+            // 
+            // lblItemRestocked
+            // 
+            this.lblItemRestocked.AutoSize = true;
+            this.lblItemRestocked.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
+            this.lblItemRestocked.ForeColor = System.Drawing.Color.Lime;
+            this.lblItemRestocked.Location = new System.Drawing.Point(7, 524);
+            this.lblItemRestocked.Name = "lblItemRestocked";
+            this.lblItemRestocked.Size = new System.Drawing.Size(179, 27);
+            this.lblItemRestocked.TabIndex = 82;
+            this.lblItemRestocked.Text = "Item Restocked!";
+            this.lblItemRestocked.Visible = false;
+            // 
+            // itemRestockedTimer
+            // 
+            this.itemRestockedTimer.Interval = 2000;
+            this.itemRestockedTimer.Tick += new System.EventHandler(this.timerRestockTick);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(880, 570);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(355, 41);
+            this.button1.TabIndex = 83;
+            this.button1.Text = "Customer Analysis";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // frmAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 642);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblItemRestocked);
+            this.Controls.Add(this.numericUpDownRestock);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtBoxItemIDRestock);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.btnRestock);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel4);
@@ -557,6 +684,7 @@ namespace AbbeyFarmPOS
             ((System.ComponentModel.ISupportInitialize)(this.DGItemsAnalysis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -604,5 +732,15 @@ namespace AbbeyFarmPOS
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemType;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantityInStock;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnRestock;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtBoxItemIDRestock;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown numericUpDownRestock;
+        private System.Windows.Forms.Label lblItemRestocked;
+        private System.Windows.Forms.Timer itemRestockedTimer;
+        private System.Windows.Forms.Button button1;
     }
 }
