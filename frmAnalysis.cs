@@ -255,5 +255,52 @@ namespace AbbeyFarmPOS
             lblItemRestocked.Visible = false;
             itemRestockedTimer.Enabled = false;
         }
+
+        private void DGItemsAnalysis_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            customerAnalysisUserControl1.Show();
+            customerAnalysisUserControl1.Visible = true;
+            customerAnalysisUserControl1.BringToFront();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void customerAnalysisUserControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAddNewUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxPrice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxQuantityInStock_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

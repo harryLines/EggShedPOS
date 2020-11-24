@@ -82,6 +82,8 @@ namespace AbbeyFarmPOS
             this.lblItemRestocked = new System.Windows.Forms.Label();
             this.itemRestockedTimer = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.customerAnalysisUserControl1 = new AbbeyFarmPOS.CustomerAnalysisUserControl();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGItemsAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
@@ -124,6 +126,7 @@ namespace AbbeyFarmPOS
             this.DGItemsAnalysis.ReadOnly = true;
             this.DGItemsAnalysis.Size = new System.Drawing.Size(500, 500);
             this.DGItemsAnalysis.TabIndex = 21;
+            this.DGItemsAnalysis.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGItemsAnalysis_CellContentClick);
             // 
             // ItemID
             // 
@@ -374,6 +377,7 @@ namespace AbbeyFarmPOS
             this.label2.Size = new System.Drawing.Size(70, 29);
             this.label2.TabIndex = 57;
             this.label2.Text = "Price";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtBoxPrice
             // 
@@ -385,6 +389,7 @@ namespace AbbeyFarmPOS
             this.txtBoxPrice.Name = "txtBoxPrice";
             this.txtBoxPrice.Size = new System.Drawing.Size(102, 28);
             this.txtBoxPrice.TabIndex = 59;
+            this.txtBoxPrice.TextChanged += new System.EventHandler(this.txtBoxPrice_TextChanged);
             // 
             // lblAddNewUser
             // 
@@ -396,6 +401,7 @@ namespace AbbeyFarmPOS
             this.lblAddNewUser.Size = new System.Drawing.Size(340, 61);
             this.lblAddNewUser.TabIndex = 60;
             this.lblAddNewUser.Text = "Add New Item";
+            this.lblAddNewUser.Click += new System.EventHandler(this.lblAddNewUser_Click);
             // 
             // panel3
             // 
@@ -415,6 +421,7 @@ namespace AbbeyFarmPOS
             this.label3.Size = new System.Drawing.Size(235, 29);
             this.label3.TabIndex = 61;
             this.label3.Text = "How Many In Stock?";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtBoxQuantityInStock
             // 
@@ -426,6 +433,7 @@ namespace AbbeyFarmPOS
             this.txtBoxQuantityInStock.Name = "txtBoxQuantityInStock";
             this.txtBoxQuantityInStock.Size = new System.Drawing.Size(71, 28);
             this.txtBoxQuantityInStock.TabIndex = 63;
+            this.txtBoxQuantityInStock.TextChanged += new System.EventHandler(this.txtBoxQuantityInStock_TextChanged);
             // 
             // label1
             // 
@@ -515,7 +523,7 @@ namespace AbbeyFarmPOS
             this.btnBack.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(12, 586);
+            this.btnBack.Location = new System.Drawing.Point(12, 605);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(70, 25);
             this.btnBack.TabIndex = 72;
@@ -623,18 +631,42 @@ namespace AbbeyFarmPOS
             this.button1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(880, 570);
+            this.button1.Location = new System.Drawing.Point(881, 589);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(355, 41);
             this.button1.TabIndex = 83;
             this.button1.Text = "Customer Analysis";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // customerAnalysisUserControl1
+            // 
+            this.customerAnalysisUserControl1.Location = new System.Drawing.Point(0, 0);
+            this.customerAnalysisUserControl1.Name = "customerAnalysisUserControl1";
+            this.customerAnalysisUserControl1.Size = new System.Drawing.Size(1248, 642);
+            this.customerAnalysisUserControl1.TabIndex = 84;
+            this.customerAnalysisUserControl1.Visible = false;
+            this.customerAnalysisUserControl1.Load += new System.EventHandler(this.customerAnalysisUserControl1_Load);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(881, 530);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(355, 41);
+            this.button2.TabIndex = 85;
+            this.button2.Text = "Item Popularity";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // frmAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1248, 642);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblItemRestocked);
             this.Controls.Add(this.numericUpDownRestock);
@@ -675,6 +707,7 @@ namespace AbbeyFarmPOS
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.DGItemsAnalysis);
             this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.customerAnalysisUserControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAnalysis";
@@ -742,5 +775,7 @@ namespace AbbeyFarmPOS
         private System.Windows.Forms.Label lblItemRestocked;
         private System.Windows.Forms.Timer itemRestockedTimer;
         private System.Windows.Forms.Button button1;
+        private CustomerAnalysisUserControl customerAnalysisUserControl1;
+        private System.Windows.Forms.Button button2;
     }
 }

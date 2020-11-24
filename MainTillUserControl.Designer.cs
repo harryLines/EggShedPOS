@@ -1,6 +1,6 @@
 ﻿namespace AbbeyFarmPOS
 {
-    partial class MainTillUserControl
+    partial class w
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGCurrentOrder = new System.Windows.Forms.DataGridView();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +49,14 @@
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.lblTotalPrice = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnMakeReturn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.txtBoxOrderID = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtBoxItemID = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGCurrentOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
@@ -89,8 +97,8 @@
             // ItemID
             // 
             this.ItemID.DataPropertyName = "ItemID";
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
+            this.ItemID.DefaultCellStyle = dataGridViewCellStyle2;
             this.ItemID.HeaderText = "ItemID";
             this.ItemID.Name = "ItemID";
             this.ItemID.ReadOnly = true;
@@ -186,7 +194,7 @@
             this.btnSpreads.Name = "btnSpreads";
             this.btnSpreads.Size = new System.Drawing.Size(240, 61);
             this.btnSpreads.TabIndex = 27;
-            this.btnSpreads.Text = "Spreads";
+            this.btnSpreads.Text = "Conserves";
             this.btnSpreads.UseVisualStyleBackColor = false;
             // 
             // btnHoney
@@ -237,7 +245,7 @@
             // 
             this.lblTotalPrice.AutoSize = true;
             this.lblTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPrice.Location = new System.Drawing.Point(470, 550);
+            this.lblTotalPrice.Location = new System.Drawing.Point(387, 569);
             this.lblTotalPrice.Name = "lblTotalPrice";
             this.lblTotalPrice.Size = new System.Drawing.Size(82, 31);
             this.lblTotalPrice.TabIndex = 31;
@@ -247,16 +255,107 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(300, 550);
+            this.label1.Location = new System.Drawing.Point(348, 536);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(163, 33);
             this.label1.TabIndex = 32;
             this.label1.Text = "Total Price:";
             // 
-            // MainTillUserControl
+            // btnMakeReturn
+            // 
+            this.btnMakeReturn.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnMakeReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakeReturn.Location = new System.Drawing.Point(57, 430);
+            this.btnMakeReturn.Name = "btnMakeReturn";
+            this.btnMakeReturn.Size = new System.Drawing.Size(223, 48);
+            this.btnMakeReturn.TabIndex = 33;
+            this.btnMakeReturn.Text = "Make Return";
+            this.btnMakeReturn.UseVisualStyleBackColor = false;
+            this.btnMakeReturn.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Trebuchet MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label2.Location = new System.Drawing.Point(30, 318);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 37);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Order ID:";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel2.Location = new System.Drawing.Point(178, 354);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(100, 1);
+            this.panel2.TabIndex = 34;
+            // 
+            // txtBoxOrderID
+            // 
+            this.txtBoxOrderID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBoxOrderID.Font = new System.Drawing.Font("Trebuchet MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxOrderID.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtBoxOrderID.Location = new System.Drawing.Point(178, 318);
+            this.txtBoxOrderID.MaxLength = 5;
+            this.txtBoxOrderID.Name = "txtBoxOrderID";
+            this.txtBoxOrderID.Size = new System.Drawing.Size(100, 34);
+            this.txtBoxOrderID.TabIndex = 36;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label3.Location = new System.Drawing.Point(46, 373);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(126, 37);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "Item ID:";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Location = new System.Drawing.Point(180, 412);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(100, 1);
+            this.panel1.TabIndex = 37;
+            // 
+            // txtBoxItemID
+            // 
+            this.txtBoxItemID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBoxItemID.Font = new System.Drawing.Font("Trebuchet MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxItemID.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtBoxItemID.Location = new System.Drawing.Point(178, 376);
+            this.txtBoxItemID.MaxLength = 5;
+            this.txtBoxItemID.Name = "txtBoxItemID";
+            this.txtBoxItemID.Size = new System.Drawing.Size(100, 34);
+            this.txtBoxItemID.TabIndex = 39;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(31, 272);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(125, 33);
+            this.label4.TabIndex = 40;
+            this.label4.Text = "Returns:";
+            // 
+            // w
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.txtBoxItemID);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.txtBoxOrderID);
+            this.Controls.Add(this.btnMakeReturn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTotalPrice);
             this.Controls.Add(this.btnVoid);
@@ -267,7 +366,7 @@
             this.Controls.Add(this.btnBread);
             this.Controls.Add(this.btnEggs);
             this.Controls.Add(this.DGCurrentOrder);
-            this.Name = "MainTillUserControl";
+            this.Name = "w";
             this.Size = new System.Drawing.Size(1100, 620);
             this.Load += new System.EventHandler(this.UserControl1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGCurrentOrder)).EndInit();
@@ -298,5 +397,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderID;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantityInStock;
+        private System.Windows.Forms.Button btnMakeReturn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox txtBoxOrderID;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txtBoxItemID;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -11,14 +11,14 @@ using System.Data.SqlClient;
 
 namespace AbbeyFarmPOS
 {
-    public partial class MainTillUserControl : UserControl
+    public partial class w : UserControl
     {
         EggsUserControl eggFrm = new EggsUserControl();
 
         public static DataTable CurrentOrderDT;
         SqlDataAdapter SDA1 = new SqlDataAdapter();
         SqlDataAdapter SDA2 = new SqlDataAdapter();
-        public MainTillUserControl()
+        public w()
         {
             InitializeComponent();
         }
@@ -78,7 +78,7 @@ namespace AbbeyFarmPOS
             if (voidClicked == false) //updates the datagrid every time the timer ticks (every 5000ms)
             {
                 SqlConnection con1 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-                string query1 = $"SELECT tblItems.ItemID, tblItems.ItemName, tblItems.Price, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID";
+                string query1 = $"SELECT tblItems.ItemID, tblItems.ItemName, tblItems.Price, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID WHERE OrderID = {frmMain.OrderID}";
                 SDA1 = new SqlDataAdapter(query1, con1);
                 DataTable CurrentOrderDT = new DataTable();
                 SDA1.Fill(CurrentOrderDT);
@@ -87,7 +87,7 @@ namespace AbbeyFarmPOS
                 if ((CurrentOrderDT.Rows.Count > 0))
                 {
                     SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-                    string query2 = $"SELECT SUM(TotalPrice) FROM tblCurrentOrder;"; //selects the sum of all the price values
+                    string query2 = $"SELECT SUM(ItemTotalPrice) FROM tblCurrentOrder WHERE OrderID = {frmMain.OrderID};"; //selects the sum of all the price values
                     SDA2 = new SqlDataAdapter(query2, con2);
                     DataTable TotalPriceDT = new DataTable();
                     SDA2.Fill(TotalPriceDT); 
@@ -120,7 +120,7 @@ namespace AbbeyFarmPOS
         private void button1_Click(object sender, EventArgs e)
         {
             SqlConnection con1 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-            string query1 = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID"; //inner join to create a table based on the current order, containing all the data needed for the payment form receipt process
+            string query1 = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID WHERE OrderID = {frmMain.OrderID}"; //inner join to create a table based on the current order, containing all the data needed for the payment form receipt process
             SDA1 = new SqlDataAdapter(query1, con1);
             DataTable CurrentOrderDT = new DataTable();
             SDA1.Fill(CurrentOrderDT);
@@ -129,7 +129,7 @@ namespace AbbeyFarmPOS
             {
                 frmPayment frmPayment = new frmPayment();
                 frmPayment.Show();
-                Login.Main.Hide();
+                Login.Main.Close();
 
             } else
             {
@@ -141,6 +141,37 @@ namespace AbbeyFarmPOS
 
         private void abbeyFarmDBDataSetBindingSource_CurrentChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+            string queryDeleteFromCO = $"DELETE FROM tblCurrentOrder WHERE ItemID = '{txtBoxItemID.Text}' AND OrderID = '{txtBoxOrderID.Text}';"; //the row selected is deleted from the table
+            SqlCommand myCommand = new SqlCommand(queryDeleteFromCO, con);
+            myCommand.ExecuteNonQuery();
+
+            string queryFindOrderExistence = $"SELECT * FROM tblCurrentOrder WHERE OrderID = {txtBoxOrderID.Text}";
+            SDA1 = new SqlDataAdapter(queryFindOrderExistence, con);
+            DataTable CurrentOrderDT = new DataTable();
+            SDA1.Fill(CurrentOrderDT);
+
+            if (CurrentOrderDT.Rows.Count == 0)
+            {
+                string queryDeleteFromReceipts = $"DELETE FROM tblReceipts WHERE OrderID = '{txtBoxOrderID.Text}';"; //the order is deleted from the receipts database as all items have been returned
+                myCommand = new SqlCommand(queryDeleteFromCO, con);
+                myCommand.ExecuteNonQuery();
+            }
+
+
+            con.Close();
+
 
         }
     }

@@ -36,14 +36,14 @@ namespace AbbeyFarmPOS
 
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
-            string query = $"SELECT OrderID FROM dbo.tblReceipt WHERE OrderID = {OrderID} "; //selects all past orders with this ID, (should be maximum 1 as this is a primary key)
+            string query = $"SELECT OrderID FROM dbo.tblCurrentOrder WHERE OrderID = {OrderID}"; //selects all past orders with this ID, (should be maximum 1 as this is a primary key)
             SqlDataAdapter SDA = new SqlDataAdapter(query, con);
             DataTable ReceiptDT = new DataTable();
 
             while (ReceiptDT.Rows.Count != 0) //this while loop checks whether any orders in the receipt database table have the orderid assigned to the OrderID variable, and assigns a new one until it is unique
             {
                 OrderID = random.Next(10000, 99999);
-                query = $"SELECT * FROM dbo.tblLogin WHERE OrderID = {OrderID}";
+                query = $"SELECT * FROM dbo.tblCurrentOrder WHERE OrderID = {OrderID}";
                 SDA.Fill(ReceiptDT);
             }
 
@@ -52,7 +52,7 @@ namespace AbbeyFarmPOS
 
             EggsUserControl frmEgg = new EggsUserControl();
             frmEgg.Hide();
-            MainTillUserControl frmMainTill = new MainTillUserControl();
+            w frmMainTill = new w();
             frmMainTill.Show();
             con.Close();
         }
@@ -62,7 +62,7 @@ namespace AbbeyFarmPOS
     {
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
         con.Open();
-        string query3 = $"DELETE FROM tblCurrentOrder;";  //deletes all values from the current order
+        string query3 = $"DELETE FROM tblCurrentOrder WHERE OrderID = {frmMain.OrderID};";  //deletes all values from the current order
         SqlCommand myCommand = new SqlCommand(query3, con);
         myCommand.ExecuteNonQuery();
         con.Close();
@@ -73,7 +73,7 @@ namespace AbbeyFarmPOS
     {
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
         con.Open();
-        string query3 = $"DELETE FROM tblCurrentOrder;"; //deletes all values from the current order
+        string query3 = $"DELETE FROM tblCurrentOrder WHERE OrderID = {frmMain.OrderID};"; //deletes all values from the current order
         SqlCommand myCommand = new SqlCommand(query3, con);
         myCommand.ExecuteNonQuery();
         con.Close();

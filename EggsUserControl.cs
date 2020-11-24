@@ -41,10 +41,10 @@ namespace AbbeyFarmPOS
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            MainTillUserControl frmMainTill = new MainTillUserControl();
+            w frmMainTill = new w();
 
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-            string query = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID";
+            string query = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID WHERE OrderID = {frmMain.OrderID}";
             SDA = new SqlDataAdapter(query, con);
             DataTable CurrentOrderDT = new DataTable();
             SDA.Fill(CurrentOrderDT);
@@ -93,7 +93,7 @@ namespace AbbeyFarmPOS
                 Random random = new Random();
 
 
-                string query1 = $"SELECT ItemQuantity FROM tblCurrentOrder WHERE ItemID = '{itemID}'"; //selects the item quantity of the item selected
+                string query1 = $"SELECT ItemQuantity FROM tblCurrentOrder WHERE ItemID = '{itemID}' AND OrderID = {frmMain.OrderID}"; //selects the item quantity of the item selected
                 SqlDataAdapter SDA1 = new SqlDataAdapter(query1, con);
                 DataTable StockCount = new DataTable();
                 SDA1.Fill(StockCount);
@@ -115,7 +115,7 @@ namespace AbbeyFarmPOS
                     int StockInt = Convert.ToInt32((StockCount.Rows[0]["ItemQuantity"])); //selects the item quantity that is in the order
                     decimal totalPrice = (floatPrice * StockInt) + floatPrice; //calculates the total price of the row, based on how many of that item have been selected
                     totalPrice = Math.Round(totalPrice, 2);
-                    string query3 = $"UPDATE tblCurrentOrder SET ItemQuantity = '{StockInt + 1}', TotalPrice = '{totalPrice}' WHERE ItemID = {itemID};"; //updates the record if item has already been added before
+                    string query3 = $"UPDATE tblCurrentOrder SET ItemQuantity = '{StockInt + 1}', ItemTotalPrice = '{totalPrice}' WHERE ItemID = {itemID} AND OrderID = {frmMain.OrderID};"; //updates the record if item has already been added before
                     SqlCommand myCommand = new SqlCommand(query3, con);
                     myCommand.ExecuteNonQuery();
                 }

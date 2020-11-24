@@ -34,7 +34,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.userControl11 = new AbbeyFarmPOS.MainTillUserControl();
+            this.userControl11 = new AbbeyFarmPOS.w();
             this.eggsUserControl1 = new AbbeyFarmPOS.EggsUserControl();
             this.SuspendLayout();
             // 
@@ -126,6 +126,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLogOut;
         private EggsUserControl eggsUserControl1;
-        public MainTillUserControl userControl11;
+        public w userControl11;
     }
 }
