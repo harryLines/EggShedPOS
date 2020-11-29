@@ -11,13 +11,13 @@ using System.Data.SqlClient;
 
 namespace AbbeyFarmPOS
 {
-    public partial class EggsUserControl : UserControl
+    public partial class EggsUserControl1 : UserControl
     {
 
-
+        frmMain mainForm;
 
         SqlDataAdapter SDA = new SqlDataAdapter();
-        public EggsUserControl()
+        public EggsUserControl1()
         {
             InitializeComponent();
         }
@@ -37,11 +37,12 @@ namespace AbbeyFarmPOS
 
 
             con.Close();
+
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            w frmMainTill = new w();
+            
 
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             string query = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID WHERE OrderID = {frmMain.OrderID}";
@@ -49,11 +50,11 @@ namespace AbbeyFarmPOS
             DataTable CurrentOrderDT = new DataTable();
             SDA.Fill(CurrentOrderDT);
 
-            frmMainTill.DGCurrentOrder.DataSource = CurrentOrderDT;
+            frmMain.MainControl.DGCurrentOrder.DataSource = CurrentOrderDT;
 
-            frmMainTill.BringToFront();
-            this.SendToBack();
-
+            Panel pnl = this.Parent as Panel;
+            pnl.Controls.Clear();
+            pnl.Controls.Add(frmMain.MainControl);
 
 
         }

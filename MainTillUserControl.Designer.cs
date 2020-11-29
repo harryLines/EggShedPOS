@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGCurrentOrder = new System.Windows.Forms.DataGridView();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +57,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtBoxItemID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnMarketOrders = new System.Windows.Forms.Button();
+            this.lblItemReturned = new System.Windows.Forms.Label();
+            this.itemReturnedTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGCurrentOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
@@ -97,8 +100,8 @@
             // ItemID
             // 
             this.ItemID.DataPropertyName = "ItemID";
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
-            this.ItemID.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
             this.ItemID.HeaderText = "ItemID";
             this.ItemID.Name = "ItemID";
             this.ItemID.ReadOnly = true;
@@ -166,7 +169,7 @@
             this.btnBread.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnBread.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBread.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBread.Location = new System.Drawing.Point(840, 127);
+            this.btnBread.Location = new System.Drawing.Point(840, 121);
             this.btnBread.Name = "btnBread";
             this.btnBread.Size = new System.Drawing.Size(240, 67);
             this.btnBread.TabIndex = 25;
@@ -178,7 +181,7 @@
             this.btnMilk.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnMilk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMilk.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMilk.Location = new System.Drawing.Point(840, 241);
+            this.btnMilk.Location = new System.Drawing.Point(840, 229);
             this.btnMilk.Name = "btnMilk";
             this.btnMilk.Size = new System.Drawing.Size(240, 64);
             this.btnMilk.TabIndex = 26;
@@ -190,7 +193,7 @@
             this.btnSpreads.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnSpreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSpreads.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSpreads.Location = new System.Drawing.Point(840, 352);
+            this.btnSpreads.Location = new System.Drawing.Point(840, 334);
             this.btnSpreads.Name = "btnSpreads";
             this.btnSpreads.Size = new System.Drawing.Size(240, 61);
             this.btnSpreads.TabIndex = 27;
@@ -202,7 +205,7 @@
             this.btnHoney.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnHoney.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHoney.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHoney.Location = new System.Drawing.Point(840, 460);
+            this.btnHoney.Location = new System.Drawing.Point(840, 436);
             this.btnHoney.Name = "btnHoney";
             this.btnHoney.Size = new System.Drawing.Size(240, 60);
             this.btnHoney.TabIndex = 28;
@@ -266,7 +269,7 @@
             this.btnMakeReturn.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnMakeReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMakeReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMakeReturn.Location = new System.Drawing.Point(57, 430);
+            this.btnMakeReturn.Location = new System.Drawing.Point(37, 436);
             this.btnMakeReturn.Name = "btnMakeReturn";
             this.btnMakeReturn.Size = new System.Drawing.Size(223, 48);
             this.btnMakeReturn.TabIndex = 33;
@@ -344,10 +347,42 @@
             this.label4.TabIndex = 40;
             this.label4.Text = "Returns:";
             // 
+            // btnMarketOrders
+            // 
+            this.btnMarketOrders.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnMarketOrders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMarketOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMarketOrders.Location = new System.Drawing.Point(840, 540);
+            this.btnMarketOrders.Name = "btnMarketOrders";
+            this.btnMarketOrders.Size = new System.Drawing.Size(240, 60);
+            this.btnMarketOrders.TabIndex = 41;
+            this.btnMarketOrders.Text = "Supermarket Orders";
+            this.btnMarketOrders.UseVisualStyleBackColor = false;
+            this.btnMarketOrders.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // lblItemReturned
+            // 
+            this.lblItemReturned.AutoSize = true;
+            this.lblItemReturned.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
+            this.lblItemReturned.ForeColor = System.Drawing.Color.Lime;
+            this.lblItemReturned.Location = new System.Drawing.Point(66, 493);
+            this.lblItemReturned.Name = "lblItemReturned";
+            this.lblItemReturned.Size = new System.Drawing.Size(162, 27);
+            this.lblItemReturned.TabIndex = 83;
+            this.lblItemReturned.Text = "Item Returned";
+            this.lblItemReturned.Visible = false;
+            // 
+            // itemReturnedTimer
+            // 
+            this.itemReturnedTimer.Interval = 2000;
+            this.itemReturnedTimer.Tick += new System.EventHandler(this.itemRestockedTimer_Tick);
+            // 
             // w
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblItemReturned);
+            this.Controls.Add(this.btnMarketOrders);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
@@ -405,5 +440,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtBoxItemID;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnMarketOrders;
+        private System.Windows.Forms.Label lblItemReturned;
+        private System.Windows.Forms.Timer itemReturnedTimer;
     }
 }

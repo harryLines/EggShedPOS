@@ -34,8 +34,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.userControl11 = new AbbeyFarmPOS.w();
-            this.eggsUserControl1 = new AbbeyFarmPOS.EggsUserControl();
+            this.panelMain = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // dateTimeLbl
@@ -82,31 +81,22 @@
             this.btnLogOut.UseVisualStyleBackColor = false;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
-            // userControl11
+            // panelMain
             // 
-            this.userControl11.Location = new System.Drawing.Point(120, 0);
-            this.userControl11.Name = "userControl11";
-            this.userControl11.Size = new System.Drawing.Size(1100, 620);
-            this.userControl11.TabIndex = 25;
-            this.userControl11.Load += new System.EventHandler(this.userControl11_Load);
-            // 
-            // eggsUserControl1
-            // 
-            this.eggsUserControl1.Location = new System.Drawing.Point(120, 0);
-            this.eggsUserControl1.Name = "eggsUserControl1";
-            this.eggsUserControl1.Size = new System.Drawing.Size(1100, 620);
-            this.eggsUserControl1.TabIndex = 26;
+            this.panelMain.Location = new System.Drawing.Point(124, 10);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(1100, 620);
+            this.panelMain.TabIndex = 28;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.userControl11);
+            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.dateTimeLbl);
-            this.Controls.Add(this.eggsUserControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -125,7 +115,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLogOut;
-        private EggsUserControl eggsUserControl1;
-        public w userControl11;
+        public System.Windows.Forms.Panel panelMain;
     }
 }

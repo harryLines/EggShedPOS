@@ -1,6 +1,6 @@
 ﻿namespace AbbeyFarmPOS
 {
-    partial class EggsUserControl
+    partial class EggsUserControl1
     {
         /// <summary> 
         /// Required designer variable.
@@ -146,13 +146,13 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // EggsUserControl
+            // EggsUserControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.eggDG);
-            this.Name = "EggsUserControl";
+            this.Name = "EggsUserControl1";
             this.Size = new System.Drawing.Size(1100, 620);
             this.Load += new System.EventHandler(this.EggsUserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.eggDG)).EndInit();

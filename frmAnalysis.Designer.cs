@@ -79,11 +79,11 @@ namespace AbbeyFarmPOS
             this.txtBoxItemIDRestock = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownRestock = new System.Windows.Forms.NumericUpDown();
-            this.lblItemRestocked = new System.Windows.Forms.Label();
             this.itemRestockedTimer = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.customerAnalysisUserControl1 = new AbbeyFarmPOS.CustomerAnalysisUserControl();
             this.button2 = new System.Windows.Forms.Button();
+            this.lblItemRestocked = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGItemsAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
@@ -609,18 +609,6 @@ namespace AbbeyFarmPOS
             this.numericUpDownRestock.Size = new System.Drawing.Size(77, 31);
             this.numericUpDownRestock.TabIndex = 81;
             // 
-            // lblItemRestocked
-            // 
-            this.lblItemRestocked.AutoSize = true;
-            this.lblItemRestocked.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
-            this.lblItemRestocked.ForeColor = System.Drawing.Color.Lime;
-            this.lblItemRestocked.Location = new System.Drawing.Point(7, 524);
-            this.lblItemRestocked.Name = "lblItemRestocked";
-            this.lblItemRestocked.Size = new System.Drawing.Size(179, 27);
-            this.lblItemRestocked.TabIndex = 82;
-            this.lblItemRestocked.Text = "Item Restocked!";
-            this.lblItemRestocked.Visible = false;
-            // 
             // itemRestockedTimer
             // 
             this.itemRestockedTimer.Interval = 2000;
@@ -660,6 +648,18 @@ namespace AbbeyFarmPOS
             this.button2.Text = "Item Popularity";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // lblItemRestocked
+            // 
+            this.lblItemRestocked.AutoSize = true;
+            this.lblItemRestocked.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
+            this.lblItemRestocked.ForeColor = System.Drawing.Color.Lime;
+            this.lblItemRestocked.Location = new System.Drawing.Point(7, 524);
+            this.lblItemRestocked.Name = "lblItemRestocked";
+            this.lblItemRestocked.Size = new System.Drawing.Size(179, 27);
+            this.lblItemRestocked.TabIndex = 82;
+            this.lblItemRestocked.Text = "Item Restocked!";
+            this.lblItemRestocked.Visible = false;
             // 
             // frmAnalysis
             // 
@@ -772,10 +772,10 @@ namespace AbbeyFarmPOS
         private System.Windows.Forms.TextBox txtBoxItemIDRestock;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownRestock;
-        private System.Windows.Forms.Label lblItemRestocked;
         private System.Windows.Forms.Timer itemRestockedTimer;
         private System.Windows.Forms.Button button1;
         private CustomerAnalysisUserControl customerAnalysisUserControl1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lblItemRestocked;
     }
 }

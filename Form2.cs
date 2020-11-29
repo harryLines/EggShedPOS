@@ -13,6 +13,10 @@ namespace AbbeyFarmPOS
 {
     public partial class frmMain : Form
     {
+        public static w MainControl = new w();
+        public static EggsUserControl1 eggsCtrl = new EggsUserControl1();
+        public static MarketOrdersUserControl mrktOrders = new MarketOrdersUserControl();
+
         static Random random = new Random();
         public static int OrderID = random.Next(10000, 99999); //initializes the orderid variable, equal to a random number
         public frmMain()
@@ -33,6 +37,8 @@ namespace AbbeyFarmPOS
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            Panel pnl = panelMain;
+            pnl.Controls.Add(MainControl);
 
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
@@ -46,14 +52,6 @@ namespace AbbeyFarmPOS
                 query = $"SELECT * FROM dbo.tblCurrentOrder WHERE OrderID = {OrderID}";
                 SDA.Fill(ReceiptDT);
             }
-
-
-
-
-            EggsUserControl frmEgg = new EggsUserControl();
-            frmEgg.Hide();
-            w frmMainTill = new w();
-            frmMainTill.Show();
             con.Close();
         }
 

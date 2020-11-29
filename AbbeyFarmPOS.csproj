@@ -109,6 +109,12 @@
     <Compile Include="frmPayment.Designer.cs">
       <DependentUpon>frmPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="MarketOrdersUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MarketOrdersUserControl.Designer.cs">
+      <DependentUpon>MarketOrdersUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainTillUserControl.cs">
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPayment.resx">
       <DependentUpon>frmPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarketOrdersUserControl.resx">
+      <DependentUpon>MarketOrdersUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -43,7 +43,7 @@ namespace AbbeyFarmPOS
 
             foreach (DataRow row in CustomerAnalysisDT.Rows)
             {
-                SqlCommand comm = new SqlCommand($"SELECT SUM(TotalPrice) FROM tblReceipts WHERE EmailAddress = '{row["EmailAddress"].ToString()}'", con);
+                SqlCommand comm = new SqlCommand($"SELECT SUM(TotalOrderPrice) FROM tblReceipts WHERE EmailAddress = '{row["EmailAddress"].ToString()}'", con);
                 object count = comm.ExecuteScalar();
                 string countStr = count.ToString();
                 float countFloat = float.Parse(countStr);

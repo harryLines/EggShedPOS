@@ -13,7 +13,8 @@ namespace AbbeyFarmPOS
 {
     public partial class w : UserControl
     {
-        EggsUserControl eggFrm = new EggsUserControl();
+        EggsUserControl1 eggFrm = new EggsUserControl1();
+        frmMain.ControlCollection mainForm;
 
         public static DataTable CurrentOrderDT;
         SqlDataAdapter SDA1 = new SqlDataAdapter();
@@ -36,11 +37,9 @@ namespace AbbeyFarmPOS
 
         private void btnEggs_Click(object sender, EventArgs e)
         {
-            this.SendToBack(); //sends the user control to the back
-
-            eggFrm.Show(); //displays the egg user control
-
-
+            Panel pnl = this.Parent as Panel;
+            pnl.Controls.Clear();
+            pnl.Controls.Add(frmMain.eggsCtrl);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -173,6 +172,28 @@ namespace AbbeyFarmPOS
             con.Close();
 
 
+            lblItemReturned.Visible = true;
+            itemReturnedTimer.Enabled = true;
+
+        }
+
+        private void itemRestockedTimer_Tick(object sender, EventArgs e)
+        {
+            lblItemReturned.Visible = false;
+            itemReturnedTimer.Enabled = false;
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            this.SendToBack();
+            frmMain.eggsCtrl.Visible = false;
+            frmMain.eggsCtrl.SendToBack();
+            frmMain.mrktOrders.Visible = true;
+            frmMain.mrktOrders.BringToFront();
+
+            Panel pnl = this.Parent as Panel;
+            pnl.Controls.Clear();
+            pnl.Controls.Add(frmMain.mrktOrders);
         }
     }
 }
