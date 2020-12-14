@@ -162,8 +162,6 @@ namespace AbbeyFarmPOS
 				//the above sections update the quantity of the item in stock to reflect the orders quantity being negated from it
 
 
-
-
 				queueIndex = pq.Enqueue(priority);
 
 				MarketOrderDT.Rows[orderNumber - 1]["queueIndex"] = queueIndex;

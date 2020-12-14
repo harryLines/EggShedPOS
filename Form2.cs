@@ -16,6 +16,7 @@ namespace AbbeyFarmPOS
         public static w MainControl = new w();
         public static EggsUserControl1 eggsCtrl = new EggsUserControl1();
         public static MarketOrdersUserControl mrktOrders = new MarketOrdersUserControl();
+        public static BreadUserControl breadCtrl = new BreadUserControl();
 
         static Random random = new Random();
         public static int OrderID = random.Next(10000, 99999); //initializes the orderid variable, equal to a random number

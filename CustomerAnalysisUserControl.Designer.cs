@@ -34,17 +34,17 @@ namespace AbbeyFarmPOS
             this.sortByComboBox = new System.Windows.Forms.ComboBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.DGCustomerAnalysis = new System.Windows.Forms.DataGridView();
-            this.abbeyFarmDBDataSet = new AbbeyFarmPOS.AbbeyFarmDBDataSet();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.abbeyFarmDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountOfTransactions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSpent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmailAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.abbeyFarmDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.abbeyFarmDBDataSet = new AbbeyFarmPOS.AbbeyFarmDBDataSet();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGCustomerAnalysis)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label6
@@ -71,6 +71,7 @@ namespace AbbeyFarmPOS
             this.sortByComboBox.Name = "sortByComboBox";
             this.sortByComboBox.Size = new System.Drawing.Size(324, 47);
             this.sortByComboBox.TabIndex = 91;
+            this.sortByComboBox.SelectedIndexChanged += new System.EventHandler(this.sortByComboBox_SelectedIndexChanged);
             // 
             // btnRefresh
             // 
@@ -83,6 +84,7 @@ namespace AbbeyFarmPOS
             this.btnRefresh.TabIndex = 84;
             this.btnRefresh.Text = "Search";
             this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // DGCustomerAnalysis
             // 
@@ -105,29 +107,6 @@ namespace AbbeyFarmPOS
             this.DGCustomerAnalysis.ReadOnly = true;
             this.DGCustomerAnalysis.Size = new System.Drawing.Size(771, 510);
             this.DGCustomerAnalysis.TabIndex = 83;
-            // 
-            // abbeyFarmDBDataSet
-            // 
-            this.abbeyFarmDBDataSet.DataSetName = "AbbeyFarmDBDataSet";
-            this.abbeyFarmDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // btnBack
-            // 
-            this.btnBack.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(14, 605);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(70, 25);
-            this.btnBack.TabIndex = 93;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // abbeyFarmDBDataSetBindingSource
-            // 
-            this.abbeyFarmDBDataSetBindingSource.DataSource = this.abbeyFarmDBDataSet;
-            this.abbeyFarmDBDataSetBindingSource.Position = 0;
             // 
             // FirstName
             // 
@@ -167,6 +146,29 @@ namespace AbbeyFarmPOS
             this.EmailAddress.ReadOnly = true;
             this.EmailAddress.Width = 199;
             // 
+            // abbeyFarmDBDataSetBindingSource
+            // 
+            this.abbeyFarmDBDataSetBindingSource.DataSource = this.abbeyFarmDBDataSet;
+            this.abbeyFarmDBDataSetBindingSource.Position = 0;
+            // 
+            // abbeyFarmDBDataSet
+            // 
+            this.abbeyFarmDBDataSet.DataSetName = "AbbeyFarmDBDataSet";
+            this.abbeyFarmDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Location = new System.Drawing.Point(14, 605);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(70, 25);
+            this.btnBack.TabIndex = 93;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // CustomerAnalysisUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,8 +182,8 @@ namespace AbbeyFarmPOS
             this.Size = new System.Drawing.Size(1248, 642);
             this.Load += new System.EventHandler(this.CustomerAnalysisUserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGCustomerAnalysis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

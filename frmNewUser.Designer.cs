@@ -52,6 +52,11 @@
             this.lblYourUserID = new System.Windows.Forms.Label();
             this.lblUserID = new System.Windows.Forms.Label();
             this.btnContinue = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtboxRemoveUserID = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UserIcon)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +65,7 @@
             // 
             this.lblAddNewUser.AutoSize = true;
             this.lblAddNewUser.Font = new System.Drawing.Font("Trebuchet MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddNewUser.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblAddNewUser.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblAddNewUser.Location = new System.Drawing.Point(229, 30);
             this.lblAddNewUser.Name = "lblAddNewUser";
             this.lblAddNewUser.Size = new System.Drawing.Size(342, 61);
@@ -230,7 +235,7 @@
             // 
             this.lblUserCreated.AutoSize = true;
             this.lblUserCreated.Font = new System.Drawing.Font("Trebuchet MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserCreated.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblUserCreated.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblUserCreated.Location = new System.Drawing.Point(230, 30);
             this.lblUserCreated.Name = "lblUserCreated";
             this.lblUserCreated.Size = new System.Drawing.Size(341, 61);
@@ -305,12 +310,72 @@
             this.btnContinue.UseVisualStyleBackColor = false;
             this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Location = new System.Drawing.Point(572, 294);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(130, 1);
+            this.panel1.TabIndex = 25;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label1.Location = new System.Drawing.Point(567, 224);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 29);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "User ID";
+            // 
+            // txtboxRemoveUserID
+            // 
+            this.txtboxRemoveUserID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtboxRemoveUserID.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
+            this.txtboxRemoveUserID.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtboxRemoveUserID.Location = new System.Drawing.Point(570, 274);
+            this.txtboxRemoveUserID.MaxLength = 50;
+            this.txtboxRemoveUserID.Name = "txtboxRemoveUserID";
+            this.txtboxRemoveUserID.PasswordChar = '•';
+            this.txtboxRemoveUserID.Size = new System.Drawing.Size(130, 19);
+            this.txtboxRemoveUserID.TabIndex = 26;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(706, 274);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(69, 25);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Remove";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.Location = new System.Drawing.Point(565, 170);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(180, 29);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Remove Users:";
+            // 
             // frmNewUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtboxRemoveUserID);
             this.Controls.Add(this.btnContinue);
             this.Controls.Add(this.lblUserID);
             this.Controls.Add(this.lblYourUserID);
@@ -372,5 +437,10 @@
         private System.Windows.Forms.Label lblYourUserID;
         private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Button btnContinue;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtboxRemoveUserID;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
     }
 }

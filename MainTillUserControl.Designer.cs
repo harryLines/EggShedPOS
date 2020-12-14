@@ -175,6 +175,7 @@
             this.btnBread.TabIndex = 25;
             this.btnBread.Text = "Bread";
             this.btnBread.UseVisualStyleBackColor = false;
+            this.btnBread.Click += new System.EventHandler(this.btnBread_Click);
             // 
             // btnMilk
             // 

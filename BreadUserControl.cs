@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,72 +11,48 @@ using System.Data.SqlClient;
 
 namespace AbbeyFarmPOS
 {
-    public partial class EggsUserControl1 : UserControl
+    public partial class BreadUserControl : UserControl
     {
-
         frmMain mainForm;
 
         SqlDataAdapter SDA = new SqlDataAdapter();
-        public EggsUserControl1()
+
+        public BreadUserControl()
         {
             InitializeComponent();
         }
 
-        private void EggsUserControl_Load(object sender, EventArgs e)
+        private void BreadUserControl_Load(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
 
-            string query = $"SELECT ItemName, Price, QuantityInStock, ItemID FROM tblItems WHERE ItemType = 'Eggs'";
+            string query = $"SELECT ItemName, Price, QuantityInStock, ItemID FROM tblItems WHERE ItemType = 'Bread'";
             SqlDataAdapter SDA = new SqlDataAdapter(query, con);
-            DataTable EggsDT = new DataTable();
-            SDA.Fill(EggsDT);
+            DataTable breadDT = new DataTable();
+            SDA.Fill(breadDT);
 
 
-            eggDG.DataSource = EggsDT;
+            breadDG.DataSource = breadDT;
 
 
             con.Close();
-
         }
 
-        private void btnBack_Click(object sender, EventArgs e)
+        private void breadDG_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-            string query = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID WHERE OrderID = {frmMain.OrderID}";
-            SDA = new SqlDataAdapter(query, con);
-            DataTable CurrentOrderDT = new DataTable();
-            SDA.Fill(CurrentOrderDT);
-
-            frmMain.MainControl.DGCurrentOrder.DataSource = CurrentOrderDT;
-
-            Panel pnl = this.Parent as Panel;
-            pnl.Controls.Clear();
-            pnl.Controls.Add(frmMain.MainControl);
-
 
         }
 
-        private void eggDG_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-       
-
-
-        }
-
-
-
-        private void eggDG_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void breadDG_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
 
 
-            DataGridViewRow row = eggDG.Rows[e.RowIndex];
+            DataGridViewRow row = breadDG.Rows[e.RowIndex];
             var itemID = row.Cells[3].Value.ToString();
             string price = row.Cells[1].Value.ToString();
-            decimal floatPrice = decimal.Parse(price); 
+            decimal floatPrice = decimal.Parse(price);
             decimal priceDec = decimal.Parse(price);
             if (int.Parse(row.Cells[2].Value.ToString()) == 0)
             {
@@ -100,7 +76,7 @@ namespace AbbeyFarmPOS
                 SDA1.Fill(StockCount);
 
 
-                eggDG.CurrentRow.Selected = true;
+                breadDG.CurrentRow.Selected = true;
 
                 if (StockCount.Rows.Count == 0)
                 {
@@ -127,27 +103,21 @@ namespace AbbeyFarmPOS
             }
         }
 
-        private void eggDG_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
 
-            string query = $"SELECT ItemName, Price, QuantityInStock, ItemID FROM tblItems WHERE ItemName LIKE '%{txtBoxSearch.Text}%' AND ItemType = 'Eggs'";
+            string query = $"SELECT ItemName, Price, QuantityInStock, ItemID FROM tblItems WHERE ItemName LIKE '%{txtBoxSearch.Text}%' AND ItemType = 'Bread'";
             SqlDataAdapter SDA = new SqlDataAdapter(query, con);
-            DataTable EggsDT = new DataTable();
-            SDA.Fill(EggsDT);
+            DataTable breadDT = new DataTable();
+            SDA.Fill(breadDT);
 
 
-            eggDG.DataSource = EggsDT;
+            breadDG.DataSource = breadDT;
 
 
             con.Close();
-
         }
     }
 }

@@ -13,7 +13,6 @@ namespace AbbeyFarmPOS
 {
     public partial class w : UserControl
     {
-        EggsUserControl1 eggFrm = new EggsUserControl1();
         frmMain.ControlCollection mainForm;
 
         public static DataTable CurrentOrderDT;
@@ -194,6 +193,13 @@ namespace AbbeyFarmPOS
             Panel pnl = this.Parent as Panel;
             pnl.Controls.Clear();
             pnl.Controls.Add(frmMain.mrktOrders);
+        }
+
+        private void btnBread_Click(object sender, EventArgs e)
+        {
+            Panel pnl = this.Parent as Panel;
+            pnl.Controls.Clear();
+            pnl.Controls.Add(frmMain.breadCtrl);
         }
     }
 }

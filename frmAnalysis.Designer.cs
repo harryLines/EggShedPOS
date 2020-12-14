@@ -34,13 +34,6 @@ namespace AbbeyFarmPOS
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnalysis));
             this.btnExit = new System.Windows.Forms.Button();
             this.DGItemsAnalysis = new System.Windows.Forms.DataGridView();
-            this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuantityInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.abbeyFarmDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.abbeyFarmDBDataSet = new AbbeyFarmPOS.AbbeyFarmDBDataSet();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -84,6 +77,13 @@ namespace AbbeyFarmPOS
             this.customerAnalysisUserControl1 = new AbbeyFarmPOS.CustomerAnalysisUserControl();
             this.button2 = new System.Windows.Forms.Button();
             this.lblItemRestocked = new System.Windows.Forms.Label();
+            this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuantityInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGItemsAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
@@ -127,63 +127,6 @@ namespace AbbeyFarmPOS
             this.DGItemsAnalysis.Size = new System.Drawing.Size(500, 500);
             this.DGItemsAnalysis.TabIndex = 21;
             this.DGItemsAnalysis.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGItemsAnalysis_CellContentClick);
-            // 
-            // ItemID
-            // 
-            this.ItemID.DataPropertyName = "ItemID";
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ItemID.HeaderText = "ItemID";
-            this.ItemID.Name = "ItemID";
-            this.ItemID.ReadOnly = true;
-            this.ItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ItemID.Width = 50;
-            // 
-            // itemName
-            // 
-            this.itemName.DataPropertyName = "ItemName";
-            this.itemName.HeaderText = "Item Name";
-            this.itemName.Name = "itemName";
-            this.itemName.ReadOnly = true;
-            this.itemName.Width = 194;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "QuantitySold";
-            this.Quantity.HeaderText = "Quantity Sold";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Width = 50;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 65;
-            // 
-            // TotalCash
-            // 
-            this.TotalCash.DataPropertyName = "TotalCash";
-            this.TotalCash.HeaderText = "Total Cash (£)";
-            this.TotalCash.Name = "TotalCash";
-            this.TotalCash.ReadOnly = true;
-            this.TotalCash.Width = 60;
-            // 
-            // ItemType
-            // 
-            this.ItemType.HeaderText = "Item Type";
-            this.ItemType.Name = "ItemType";
-            this.ItemType.ReadOnly = true;
-            this.ItemType.Visible = false;
-            // 
-            // QuantityInStock
-            // 
-            this.QuantityInStock.DataPropertyName = "QuantityInStock";
-            this.QuantityInStock.HeaderText = "In Stock";
-            this.QuantityInStock.Name = "QuantityInStock";
-            this.QuantityInStock.ReadOnly = true;
-            this.QuantityInStock.Width = 40;
             // 
             // abbeyFarmDBDataSetBindingSource
             // 
@@ -629,7 +572,7 @@ namespace AbbeyFarmPOS
             // 
             // customerAnalysisUserControl1
             // 
-            this.customerAnalysisUserControl1.Location = new System.Drawing.Point(0, 0);
+            this.customerAnalysisUserControl1.Location = new System.Drawing.Point(-2, 0);
             this.customerAnalysisUserControl1.Name = "customerAnalysisUserControl1";
             this.customerAnalysisUserControl1.Size = new System.Drawing.Size(1248, 642);
             this.customerAnalysisUserControl1.TabIndex = 84;
@@ -660,6 +603,64 @@ namespace AbbeyFarmPOS
             this.lblItemRestocked.TabIndex = 82;
             this.lblItemRestocked.Text = "Item Restocked!";
             this.lblItemRestocked.Visible = false;
+            // 
+            // ItemID
+            // 
+            this.ItemID.DataPropertyName = "ItemID";
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ItemID.HeaderText = "ItemID";
+            this.ItemID.Name = "ItemID";
+            this.ItemID.ReadOnly = true;
+            this.ItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ItemID.Width = 50;
+            // 
+            // itemName
+            // 
+            this.itemName.DataPropertyName = "ItemName";
+            this.itemName.HeaderText = "Item Name";
+            this.itemName.Name = "itemName";
+            this.itemName.ReadOnly = true;
+            this.itemName.Width = 194;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "QuantitySold";
+            this.Quantity.HeaderText = "Quantity Sold";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            this.Quantity.Width = 50;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 65;
+            // 
+            // TotalCash
+            // 
+            this.TotalCash.DataPropertyName = "TotalCash";
+            this.TotalCash.HeaderText = "Total Cash (£)";
+            this.TotalCash.Name = "TotalCash";
+            this.TotalCash.ReadOnly = true;
+            this.TotalCash.Width = 60;
+            // 
+            // ItemType
+            // 
+            this.ItemType.HeaderText = "Item Type";
+            this.ItemType.Name = "ItemType";
+            this.ItemType.ReadOnly = true;
+            this.ItemType.Visible = false;
+            // 
+            // QuantityInStock
+            // 
+            this.QuantityInStock.DataPropertyName = "QuantityInStock";
+            this.QuantityInStock.HeaderText = "In Stock";
+            this.QuantityInStock.Name = "QuantityInStock";
+            this.QuantityInStock.ReadOnly = true;
+            this.QuantityInStock.Width = 40;
             // 
             // frmAnalysis
             // 
@@ -757,13 +758,6 @@ namespace AbbeyFarmPOS
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtBoxPassword;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ItemID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn itemName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalCash;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ItemType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityInStock;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnRestock;
         private System.Windows.Forms.Label label7;
@@ -777,5 +771,12 @@ namespace AbbeyFarmPOS
         private CustomerAnalysisUserControl customerAnalysisUserControl1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblItemRestocked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ItemID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalCash;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ItemType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityInStock;
     }
 }

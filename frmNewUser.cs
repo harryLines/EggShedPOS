@@ -133,5 +133,15 @@ namespace AbbeyFarmPOS
             Login frm1Load = new Login();
             frm1Load.Show();
         }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+            string queryDeleteFromUsers = $"DELETE FROM tblLogin WHERE UserID = '{txtboxRemoveUserID.Text}';"; //the row selected is deleted from the table
+            SqlCommand myCommand = new SqlCommand(queryDeleteFromUsers, con);
+            myCommand.ExecuteNonQuery();
+            con.Close();
+        }
     }
 }

@@ -39,6 +39,10 @@
             this.abbeyFarmDBDataSet = new AbbeyFarmPOS.AbbeyFarmDBDataSet();
             this.abbeyFarmDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnBack = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtBoxSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.eggDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
@@ -146,10 +150,57 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel5.Location = new System.Drawing.Point(401, 553);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(322, 1);
+            this.panel5.TabIndex = 79;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label8.Location = new System.Drawing.Point(298, 523);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(97, 29);
+            this.label8.TabIndex = 78;
+            this.label8.Text = "Search:";
+            // 
+            // txtBoxSearch
+            // 
+            this.txtBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBoxSearch.Font = new System.Drawing.Font("Trebuchet MS", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxSearch.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtBoxSearch.Location = new System.Drawing.Point(401, 526);
+            this.txtBoxSearch.MaxLength = 50;
+            this.txtBoxSearch.Name = "txtBoxSearch";
+            this.txtBoxSearch.Size = new System.Drawing.Size(319, 28);
+            this.txtBoxSearch.TabIndex = 80;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(726, 526);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(77, 28);
+            this.btnSearch.TabIndex = 81;
+            this.btnSearch.Text = "Go";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // EggsUserControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtBoxSearch);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.eggDG);
             this.Name = "EggsUserControl1";
@@ -159,6 +210,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,5 +224,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantityInStock;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemID;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtBoxSearch;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
