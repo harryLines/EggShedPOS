@@ -38,6 +38,7 @@ namespace AbbeyFarmPOS
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            w MainControl = new w();
             Panel pnl = panelMain;
             pnl.Controls.Add(MainControl);
 

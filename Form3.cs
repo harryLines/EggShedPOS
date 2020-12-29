@@ -30,14 +30,23 @@ namespace AbbeyFarmPOS
             string query = $"SELECT IsAdmin,Password FROM dbo.tblLogin WHERE UserID = '{userIDTxtBox.Text.Trim()}' AND Password = '{passwordTextBox.Text}'"; //selects the record matching the userID and password, if it is valid
             SqlDataAdapter SDA = new SqlDataAdapter(query, con);
             DataTable UsersDT = new DataTable();
-            SDA.Fill(UsersDT);
+
+            try
+            {
+                SDA.Fill(UsersDT);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Invalid Input", "Input Error", MessageBoxButtons.OK);
+                return;
+            }
+
             if(UsersDT.Rows.Count == 1)
             {
                 string password = UsersDT.Rows[0]["Password"].ToString();
                 string isTrue = UsersDT.Rows[0]["IsAdmin"].ToString();  //if the "IsAdmin" boolean column is true, this variable is true
                 if (isTrue == "True") //checks whether the userid entered has admin privileges
                 {
-
                     frmNewUser frmNU = new frmNewUser();
                     frmNU.Show();
                     this.Hide();
@@ -49,11 +58,6 @@ namespace AbbeyFarmPOS
             {
                 MessageBox.Show("Account with this info does not exist", "Verification Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
-
-
-
-
-
         }
 
         private void label3_Click(object sender, EventArgs e)

@@ -88,38 +88,45 @@ namespace AbbeyFarmPOS
                 query = $"SELECT * FROM dbo.tblLogin WHERE UserID = {randomNum}"; //selects all from the rows which userID is equal to our random number
                 SDA.Fill(UsersDT); //fills the c# datatable with this data (if any are found)
             }
-        
 
 
-            string query2 = $"INSERT INTO tblLogin (UserID, Password, Forename, Surname, isAdmin) VALUES('{randomNum}', '{passwordTxt.Text}', '{forenameTxt.Text}', '{surnameTxt.Text}', '{isAdminCheckBox.Checked}'); "; //inserts a new record into the "TblLogin" database table
-            SqlCommand myCommand = new SqlCommand(query2, con);
-            myCommand.ExecuteNonQuery();
+
+            if ((passwordTxt.TextLength > 8) & (forenameTxt.Text != "" & forenameTxt.Text != " ") & (surnameTxt.Text != "" & surnameTxt.Text != " "))
+            {
+                string query2 = $"INSERT INTO tblLogin (UserID, Password, Forename, Surname, isAdmin) VALUES('{randomNum}', '{passwordTxt.Text}', '{forenameTxt.Text}', '{surnameTxt.Text}', '{isAdminCheckBox.Checked}'); "; //inserts a new record into the "TblLogin" database table
+                SqlCommand myCommand = new SqlCommand(query2, con);
+                myCommand.ExecuteNonQuery();
+
+                lblAddNewUser.Hide();
+                lblForename.Hide();
+                lblSurname.Hide();
+                lblPassword.Hide();
+                lblIsAdmin.Hide();
+                forenameTxt.Hide();
+                surnameTxt.Hide();
+                passwordTxt.Hide();
+                FNLine.Hide();
+                SNLine.Hide();
+                PWLine.Hide();
+                UserIcon.Hide();
+                isAdminCheckBox.Hide();
+                btnCreate.Hide();
+
+                lblUserCreated.Show();
+                lblSuccessfulCreation.Show();
+                btnContinue.Show();
+                lblYourUserID.Show();
+
+                lblUserID.Text = randomNum.ToString();
+
+                lblUserID.Show();
+            } else
+            {
+                MessageBox.Show("Invalid User Details", "User Creation Error", MessageBoxButtons.OK);
+            }
 
 
-            lblAddNewUser.Hide();
-            lblForename.Hide();
-            lblSurname.Hide();
-            lblPassword.Hide();
-            lblIsAdmin.Hide();
-            forenameTxt.Hide();
-            surnameTxt.Hide();
-            passwordTxt.Hide();
-            FNLine.Hide();
-            SNLine.Hide();
-            PWLine.Hide();
-            UserIcon.Hide();
-            isAdminCheckBox.Hide();
-            btnCreate.Hide();
 
-            lblUserCreated.Show();
-            lblSuccessfulCreation.Show();
-            btnContinue.Show();        
-            lblYourUserID.Show();
-
-            lblUserID.Text = randomNum.ToString();
-
-
-            lblUserID.Show();
         }
 
         private void label2_Click_1(object sender, EventArgs e)
@@ -140,7 +147,28 @@ namespace AbbeyFarmPOS
             con.Open();
             string queryDeleteFromUsers = $"DELETE FROM tblLogin WHERE UserID = '{txtboxRemoveUserID.Text}';"; //the row selected is deleted from the table
             SqlCommand myCommand = new SqlCommand(queryDeleteFromUsers, con);
-            myCommand.ExecuteNonQuery();
+
+            DataTable UsersDT = new DataTable();
+            string query = $"SELECT * FROM dbo.tblLogin WHERE UserID = {txtboxRemoveUserID.Text}"; //selects all from the rows which userID is equal to our random number
+            SqlDataAdapter SDA = new SqlDataAdapter(query, con);
+            SDA.Fill(UsersDT);
+
+            if (UsersDT.Rows.Count == 1)
+            {
+                try
+                {
+                    myCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid User Details", "User Deletion Error", MessageBoxButtons.OK);
+                    return;
+                }
+            } else
+            {
+                MessageBox.Show("User Does Not Exist", "User Deletion Error", MessageBoxButtons.OK);
+            }
+
             con.Close();
         }
     }

@@ -127,7 +127,7 @@ namespace AbbeyFarmPOS
             {
                 frmPayment frmPayment = new frmPayment();
                 frmPayment.Show();
-                Login.Main.Close();
+                Login.Main.Hide();
 
             } else
             {
@@ -151,29 +151,49 @@ namespace AbbeyFarmPOS
         {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
-            string queryDeleteFromCO = $"DELETE FROM tblCurrentOrder WHERE ItemID = '{txtBoxItemID.Text}' AND OrderID = '{txtBoxOrderID.Text}';"; //the row selected is deleted from the table
-            SqlCommand myCommand = new SqlCommand(queryDeleteFromCO, con);
-            myCommand.ExecuteNonQuery();
 
-            string queryFindOrderExistence = $"SELECT * FROM tblCurrentOrder WHERE OrderID = {txtBoxOrderID.Text}";
-            SDA1 = new SqlDataAdapter(queryFindOrderExistence, con);
-            DataTable CurrentOrderDT = new DataTable();
-            SDA1.Fill(CurrentOrderDT);
+            string queryCheckOrderDate = $"SELECT * FROM tblReceipts WHERE DateAndTime > DATEADD(DAY, -28, GETDATE()) AND OrderID = {txtBoxOrderID.Text}"; // this queries and finds an order with the specified id and checks if it was less than 28 days ago
+            SDA1 = new SqlDataAdapter(queryCheckOrderDate, con);
+            DataTable DateCheckDT = new DataTable();
 
-            if (CurrentOrderDT.Rows.Count == 0)
+            try
             {
-                string queryDeleteFromReceipts = $"DELETE FROM tblReceipts WHERE OrderID = '{txtBoxOrderID.Text}';"; //the order is deleted from the receipts database as all items have been returned
-                myCommand = new SqlCommand(queryDeleteFromCO, con);
+                SDA1.Fill(DateCheckDT);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Invalid Input", "Input Error", MessageBoxButtons.OK);
+                return;
+            }
+
+
+            if (DateCheckDT.Rows.Count == 1) { // checks that the order was less than 28 days ago
+
+                string queryDeleteFromCO = $"DELETE FROM tblCurrentOrder WHERE ItemID = '{txtBoxItemID.Text}' AND OrderID = '{txtBoxOrderID.Text}';"; //the row selected is deleted from the table
+                SqlCommand myCommand = new SqlCommand(queryDeleteFromCO, con);
                 myCommand.ExecuteNonQuery();
+
+                string queryFindOrderExistence = $"SELECT * FROM tblCurrentOrder WHERE OrderID = {txtBoxOrderID.Text}";
+                SDA1 = new SqlDataAdapter(queryFindOrderExistence, con);
+                DataTable CurrentOrderDT = new DataTable();
+                SDA1.Fill(CurrentOrderDT);
+
+                if (CurrentOrderDT.Rows.Count == 0)
+                {
+                    string queryDeleteFromReceipts = $"DELETE FROM tblReceipts WHERE OrderID = '{txtBoxOrderID.Text}';"; //the order is deleted from the receipts database as all items have been returned
+                    myCommand = new SqlCommand(queryDeleteFromCO, con);
+                    myCommand.ExecuteNonQuery();
+                }
+
+            lblItemReturned.Visible = true;
+            itemReturnedTimer.Enabled = true;
+            } else
+            {
+                MessageBox.Show("Order date was more than 28 days ago or order/item doesn't exist", "Refund Error", MessageBoxButtons.OK);
             }
 
 
             con.Close();
-
-
-            lblItemReturned.Visible = true;
-            itemReturnedTimer.Enabled = true;
-
         }
 
         private void itemRestockedTimer_Tick(object sender, EventArgs e)
@@ -184,12 +204,6 @@ namespace AbbeyFarmPOS
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            this.SendToBack();
-            frmMain.eggsCtrl.Visible = false;
-            frmMain.eggsCtrl.SendToBack();
-            frmMain.mrktOrders.Visible = true;
-            frmMain.mrktOrders.BringToFront();
-
             Panel pnl = this.Parent as Panel;
             pnl.Controls.Clear();
             pnl.Controls.Add(frmMain.mrktOrders);

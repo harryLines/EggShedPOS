@@ -55,7 +55,16 @@ namespace AbbeyFarmPOS
 
             if ((userIDTxtBox.Text != "") & (passwordTxtBox.Text != "")) // checks the user has entered information into both boxs
             {
-                SDA.Fill(UsersDT);
+                try
+                {
+                    SDA.Fill(UsersDT);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid Input", "Input Error", MessageBoxButtons.OK);
+                    return;
+                }
+
                 if (UsersDT.Rows.Count == 1) //if a record is found with this username and password, the main till form is opened
                 {
                     Main.Show();

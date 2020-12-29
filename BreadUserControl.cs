@@ -119,5 +119,20 @@ namespace AbbeyFarmPOS
 
             con.Close();
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            string query = $"SELECT tblItems.ItemID, tblItems.QuantityInStock, tblItems.ItemName, tblItems.Price, tblCurrentOrder.OrderID, tblCurrentOrder.ItemQuantity FROM tblItems INNER JOIN tblCurrentOrder ON tblItems.ItemID = tblCurrentOrder.ItemID WHERE OrderID = {frmMain.OrderID}";
+            SDA = new SqlDataAdapter(query, con);
+            DataTable CurrentOrderDT = new DataTable();
+            SDA.Fill(CurrentOrderDT);
+
+            frmMain.MainControl.DGCurrentOrder.DataSource = CurrentOrderDT;
+
+            Panel pnl = this.Parent as Panel;
+            pnl.Controls.Clear();
+            pnl.Controls.Add(frmMain.MainControl);
+        }
     }
 }

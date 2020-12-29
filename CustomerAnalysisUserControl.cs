@@ -28,30 +28,6 @@ namespace AbbeyFarmPOS
             SDA1 = new SqlDataAdapter(query1, con);
             DataTable CustomerAnalysisDT = new DataTable();
             SDA1.Fill(CustomerAnalysisDT);
-
-            CustomerAnalysisDT.Columns.Add("AmountOfTransactions", typeof(int));
-
-            foreach (DataRow row in CustomerAnalysisDT.Rows)
-            {
-                SqlCommand comm = new SqlCommand($"SELECT COUNT(OrderID) FROM tblReceipts WHERE EmailAddress = '{row["EmailAddress"].ToString()}'", con);
-                Int32 count = (Int32)comm.ExecuteScalar();
-
-                row["AmountOfTransactions"] = count;
-            }
-
-            CustomerAnalysisDT.Columns.Add("TotalSpent", typeof(float));
-
-            foreach (DataRow row in CustomerAnalysisDT.Rows)
-            {
-                SqlCommand comm = new SqlCommand($"SELECT SUM(TotalOrderPrice) FROM tblReceipts WHERE EmailAddress = '{row["EmailAddress"].ToString()}'", con);
-                object count = comm.ExecuteScalar();
-                string countStr = count.ToString();
-                float countFloat = float.Parse(countStr);
-
-                row["TotalSpent"] = countFloat;
-            }
-
-            
             DGCustomerAnalysis.DataSource = CustomerAnalysisDT;
             con.Close();
         }
@@ -95,30 +71,9 @@ namespace AbbeyFarmPOS
 
 
             string query2 = $"SELECT * FROM tblCustomers {sortByMode};";
+            CustomerAnalysisDT.Clear();
             SDA = new SqlDataAdapter(query2, con);
-
-            CustomerAnalysisDT.Columns.Add("AmountOfTransactions", typeof(int));
-
-            foreach (DataRow row in CustomerAnalysisDT.Rows)
-            {
-                SqlCommand comm = new SqlCommand($"SELECT COUNT(OrderID) FROM tblReceipts WHERE EmailAddress = '{row["EmailAddress"].ToString()}'", con);
-                Int32 count = (Int32)comm.ExecuteScalar();
-
-                row["AmountOfTransactions"] = count;
-            }
-
-            CustomerAnalysisDT.Columns.Add("TotalSpent", typeof(float));
-
-            foreach (DataRow row in CustomerAnalysisDT.Rows)
-            {
-                SqlCommand comm = new SqlCommand($"SELECT SUM(TotalOrderPrice) FROM tblReceipts WHERE EmailAddress = '{row["EmailAddress"].ToString()}'", con);
-                object count = comm.ExecuteScalar();
-                string countStr = count.ToString();
-                float countFloat = float.Parse(countStr);
-
-                row["TotalSpent"] = countFloat;
-            }
-
+            SDA.Fill(CustomerAnalysisDT);
             DGCustomerAnalysis.DataSource = CustomerAnalysisDT;
             con.Close();
         }

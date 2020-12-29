@@ -34,6 +34,13 @@ namespace AbbeyFarmPOS
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnalysis));
             this.btnExit = new System.Windows.Forms.Button();
             this.DGItemsAnalysis = new System.Windows.Forms.DataGridView();
+            this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuantityInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.abbeyFarmDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.abbeyFarmDBDataSet = new AbbeyFarmPOS.AbbeyFarmDBDataSet();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -74,16 +81,9 @@ namespace AbbeyFarmPOS
             this.numericUpDownRestock = new System.Windows.Forms.NumericUpDown();
             this.itemRestockedTimer = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.customerAnalysisUserControl1 = new AbbeyFarmPOS.CustomerAnalysisUserControl();
-            this.button2 = new System.Windows.Forms.Button();
             this.lblItemRestocked = new System.Windows.Forms.Label();
-            this.ItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ItemType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuantityInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
+            this.customerAnalysisUserControl1 = new AbbeyFarmPOS.CustomerAnalysisUserControl();
             ((System.ComponentModel.ISupportInitialize)(this.DGItemsAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abbeyFarmDBDataSet)).BeginInit();
@@ -127,6 +127,64 @@ namespace AbbeyFarmPOS
             this.DGItemsAnalysis.Size = new System.Drawing.Size(500, 500);
             this.DGItemsAnalysis.TabIndex = 21;
             this.DGItemsAnalysis.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGItemsAnalysis_CellContentClick);
+            // 
+            // ItemID
+            // 
+            this.ItemID.DataPropertyName = "ItemID";
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ItemID.HeaderText = "ItemID";
+            this.ItemID.Name = "ItemID";
+            this.ItemID.ReadOnly = true;
+            this.ItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ItemID.Width = 50;
+            // 
+            // itemName
+            // 
+            this.itemName.DataPropertyName = "ItemName";
+            this.itemName.HeaderText = "Item Name";
+            this.itemName.Name = "itemName";
+            this.itemName.ReadOnly = true;
+            this.itemName.Width = 194;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "QuantitySold";
+            this.Quantity.HeaderText = "Quantity Sold";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            this.Quantity.Width = 50;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 65;
+            // 
+            // TotalCash
+            // 
+            this.TotalCash.DataPropertyName = "TotalCash";
+            this.TotalCash.HeaderText = "Total Cash (£)";
+            this.TotalCash.Name = "TotalCash";
+            this.TotalCash.ReadOnly = true;
+            this.TotalCash.Width = 60;
+            // 
+            // ItemType
+            // 
+            this.ItemType.HeaderText = "Item Type";
+            this.ItemType.Name = "ItemType";
+            this.ItemType.ReadOnly = true;
+            this.ItemType.Visible = false;
+            // 
+            // QuantityInStock
+            // 
+            this.QuantityInStock.DataPropertyName = "QuantityInStock";
+            this.QuantityInStock.HeaderText = "In Stock";
+            this.QuantityInStock.Name = "QuantityInStock";
+            this.QuantityInStock.ReadOnly = true;
+            this.QuantityInStock.Width = 40;
             // 
             // abbeyFarmDBDataSetBindingSource
             // 
@@ -237,7 +295,7 @@ namespace AbbeyFarmPOS
             "Best Selling",
             "Worst Selling",
             "Out Of Stock"});
-            this.sortByComboBox.Location = new System.Drawing.Point(26, 118);
+            this.sortByComboBox.Location = new System.Drawing.Point(17, 84);
             this.sortByComboBox.Name = "sortByComboBox";
             this.sortByComboBox.Size = new System.Drawing.Size(324, 47);
             this.sortByComboBox.TabIndex = 35;
@@ -455,7 +513,7 @@ namespace AbbeyFarmPOS
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(21, 88);
+            this.label6.Location = new System.Drawing.Point(12, 54);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 27);
             this.label6.TabIndex = 71;
@@ -570,14 +628,17 @@ namespace AbbeyFarmPOS
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
-            // customerAnalysisUserControl1
+            // lblItemRestocked
             // 
-            this.customerAnalysisUserControl1.Location = new System.Drawing.Point(-2, 0);
-            this.customerAnalysisUserControl1.Name = "customerAnalysisUserControl1";
-            this.customerAnalysisUserControl1.Size = new System.Drawing.Size(1248, 642);
-            this.customerAnalysisUserControl1.TabIndex = 84;
-            this.customerAnalysisUserControl1.Visible = false;
-            this.customerAnalysisUserControl1.Load += new System.EventHandler(this.customerAnalysisUserControl1_Load);
+            this.lblItemRestocked.AutoSize = true;
+            this.lblItemRestocked.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
+            this.lblItemRestocked.ForeColor = System.Drawing.Color.Lime;
+            this.lblItemRestocked.Location = new System.Drawing.Point(7, 524);
+            this.lblItemRestocked.Name = "lblItemRestocked";
+            this.lblItemRestocked.Size = new System.Drawing.Size(179, 27);
+            this.lblItemRestocked.TabIndex = 82;
+            this.lblItemRestocked.Text = "Item Restocked!";
+            this.lblItemRestocked.Visible = false;
             // 
             // button2
             // 
@@ -592,75 +653,14 @@ namespace AbbeyFarmPOS
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // lblItemRestocked
+            // customerAnalysisUserControl1
             // 
-            this.lblItemRestocked.AutoSize = true;
-            this.lblItemRestocked.Font = new System.Drawing.Font("Trebuchet MS", 16F, System.Drawing.FontStyle.Bold);
-            this.lblItemRestocked.ForeColor = System.Drawing.Color.Lime;
-            this.lblItemRestocked.Location = new System.Drawing.Point(7, 524);
-            this.lblItemRestocked.Name = "lblItemRestocked";
-            this.lblItemRestocked.Size = new System.Drawing.Size(179, 27);
-            this.lblItemRestocked.TabIndex = 82;
-            this.lblItemRestocked.Text = "Item Restocked!";
-            this.lblItemRestocked.Visible = false;
-            // 
-            // ItemID
-            // 
-            this.ItemID.DataPropertyName = "ItemID";
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            this.ItemID.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ItemID.HeaderText = "ItemID";
-            this.ItemID.Name = "ItemID";
-            this.ItemID.ReadOnly = true;
-            this.ItemID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ItemID.Width = 50;
-            // 
-            // itemName
-            // 
-            this.itemName.DataPropertyName = "ItemName";
-            this.itemName.HeaderText = "Item Name";
-            this.itemName.Name = "itemName";
-            this.itemName.ReadOnly = true;
-            this.itemName.Width = 194;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "QuantitySold";
-            this.Quantity.HeaderText = "Quantity Sold";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Width = 50;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 65;
-            // 
-            // TotalCash
-            // 
-            this.TotalCash.DataPropertyName = "TotalCash";
-            this.TotalCash.HeaderText = "Total Cash (£)";
-            this.TotalCash.Name = "TotalCash";
-            this.TotalCash.ReadOnly = true;
-            this.TotalCash.Width = 60;
-            // 
-            // ItemType
-            // 
-            this.ItemType.HeaderText = "Item Type";
-            this.ItemType.Name = "ItemType";
-            this.ItemType.ReadOnly = true;
-            this.ItemType.Visible = false;
-            // 
-            // QuantityInStock
-            // 
-            this.QuantityInStock.DataPropertyName = "QuantityInStock";
-            this.QuantityInStock.HeaderText = "In Stock";
-            this.QuantityInStock.Name = "QuantityInStock";
-            this.QuantityInStock.ReadOnly = true;
-            this.QuantityInStock.Width = 40;
+            this.customerAnalysisUserControl1.Location = new System.Drawing.Point(-2, 0);
+            this.customerAnalysisUserControl1.Name = "customerAnalysisUserControl1";
+            this.customerAnalysisUserControl1.Size = new System.Drawing.Size(1248, 642);
+            this.customerAnalysisUserControl1.TabIndex = 84;
+            this.customerAnalysisUserControl1.Visible = false;
+            this.customerAnalysisUserControl1.Load += new System.EventHandler(this.customerAnalysisUserControl1_Load);
             // 
             // frmAnalysis
             // 
@@ -769,7 +769,6 @@ namespace AbbeyFarmPOS
         private System.Windows.Forms.Timer itemRestockedTimer;
         private System.Windows.Forms.Button button1;
         private CustomerAnalysisUserControl customerAnalysisUserControl1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblItemRestocked;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemID;
         private System.Windows.Forms.DataGridViewTextBoxColumn itemName;
@@ -778,5 +777,6 @@ namespace AbbeyFarmPOS
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalCash;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemType;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantityInStock;
+        private System.Windows.Forms.Button button2;
     }
 }

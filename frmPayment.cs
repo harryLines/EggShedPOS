@@ -13,7 +13,6 @@ using System.Net;
 
 namespace AbbeyFarmPOS
 {
-
     public partial class frmPayment : Form
     {
         public static DataTable CurrentOrderDT;
@@ -92,88 +91,6 @@ namespace AbbeyFarmPOS
 
         private void btnSkip_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
-            con.Open();
-
-            //DataGridViewRow row = DGCurrentOrder.Rows[0];
-            //var itemID = row.Cells[1].Value.ToString();
-
-            string query1 = $"SELECT TOP 1 OrderID FROM tblCurrentOrder SORT BY DateAndTime DESC"; //selects the order id of the order being processed
-            SDA2 = new SqlDataAdapter(query1, con);
-            DataTable OrderIDDT = new DataTable();
-            SDA2.Fill(OrderIDDT);
-
-
-            var orderID = OrderIDDT.Rows[0][0];
-            string orderIDStr = orderID.ToString();
-            int orderIDInt = int.Parse(orderIDStr);
-
-
-            char[] Char = { '£' };
-            string totalPriceStr = lblTotalAmount.Text.TrimStart(Char);
-
-
-            string query2 = $"INSERT INTO tblReceipts (OrderID, TotalOrderPrice, EmailAddress, DateAndTime) VALUES('{orderIDInt}', '{float.Parse(totalPriceStr)}', '{emailAddressTxt.Text}', '{DateTime.Now}'); ";
-            SqlCommand myCommandInsert = new SqlCommand(query2, con);
-
-
-            string queryItemID = $"SELECT * FROM tblCurrentOrder WHERE OrderID = '{OrderIDPublic}' ;";
-            SDA2 = new SqlDataAdapter(queryItemID, con);
-            DataTable ItemIDDT = new DataTable();
-            SDA2.Fill(ItemIDDT);
-
-            int itemIDInt = int.Parse(ItemIDDT.Rows[0][0].ToString());
-            int itemQuantityInt = int.Parse(ItemIDDT.Rows[0][2].ToString());
-            float itemTotalPriceInt = float.Parse(ItemIDDT.Rows[0][3].ToString());
-
-            foreach (DataRow row in ItemIDDT.Rows)
-            {
-                itemIDInt = int.Parse(row[0].ToString());
-                itemQuantityInt = int.Parse(row[2].ToString());
-                itemTotalPriceInt = float.Parse(row[3].ToString());
-                query2 = $"INSERT INTO tblCurrentOrder (OrderID, ItemID, ItemQuantity, ItemTotalPrice) VALUES('{OrderIDPublic}', '{itemIDInt}','{itemQuantityInt}', '{itemTotalPriceInt}'); ";
-                myCommandInsert = new SqlCommand(query2, con);
-                myCommandInsert.ExecuteNonQuery();
-
-            }
-
-
-
-            for (int i = CurrentOrderDT.Rows.Count; i!=0; i--)
-            {
-                string itemIDStr = CurrentOrderDT.Rows[i-1]["ItemID"].ToString();
-                int itemID = int.Parse(itemIDStr);
-                string itemQuantityStr = CurrentOrderDT.Rows[i-1]["ItemQuantity"].ToString();
-                int itemQuantity = int.Parse(itemQuantityStr);
-                string query4 = $"UPDATE tblItems SET QuantitySold = QuantitySold + '{itemQuantity}', QuantityInStock = QuantityInStock - '{itemQuantity}' WHERE ItemID = '{itemID}';"; //updates the required fields in the items table
-                SqlCommand myCommandUpdate = new SqlCommand(query4, con);
-                myCommandUpdate.ExecuteNonQuery();
-
-            }
-
-
-
-            frmMain frmMain = new frmMain();
-
-            string queryChangeOrderID = $"SELECT OrderID FROM dbo.tblReceipts WHERE OrderID = {OrderID}"; //selects all past orders with this ID, (should be maximum 1 as this is a primary key)
-            SqlDataAdapter SDA = new SqlDataAdapter(queryChangeOrderID, con);
-            DataTable ReceiptDT = new DataTable();
-            SDA.Fill(ReceiptDT);
-
-            while (ReceiptDT.Rows.Count != 0) //this while loop checks whether any orders in the receipt database table have the orderid assigned to the OrderID variable, and assigns a new one until it is unique
-            {
-                frmMain.OrderID = random.Next(10000, 99999);
-                queryChangeOrderID = $"SELECT * FROM dbo.tblCurrentOrder WHERE OrderID = {frmMain.OrderID}";
-                SDA.Fill(ReceiptDT);
-            }
-            con.Close();
-            frmMain.Show();
-            this.Hide();
-        }
-
-
-        private void btnSendReceipt_Click(object sender, EventArgs e)
-        {
             frmMain frmMain = new frmMain();
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
@@ -208,6 +125,7 @@ namespace AbbeyFarmPOS
             int itemIDInt = int.Parse(ItemIDDT.Rows[0][0].ToString());
             int itemQuantityInt = int.Parse(ItemIDDT.Rows[0][2].ToString());
             float itemTotalPriceInt = float.Parse(ItemIDDT.Rows[0][3].ToString());
+            float totalOrderPrice = 0;
 
             foreach (DataRow row in ItemIDDT.Rows)
             {
@@ -217,7 +135,66 @@ namespace AbbeyFarmPOS
                 query2 = $"UPDATE tblCurrentOrder SET ItemQuantity = '{itemQuantityInt}', ItemTotalPrice = '{itemTotalPriceInt}' WHERE ItemID = {itemIDInt} AND OrderID = {OrderIDPublic}; ";
                 myCommandInsert = new SqlCommand(query2, con);
                 myCommandInsert.ExecuteNonQuery();
+                totalOrderPrice += itemTotalPriceInt;
+            }
 
+            con.Close();
+
+            frmMain.Show();
+            this.Hide();
+
+
+        }
+
+
+        private void btnSendReceipt_Click(object sender, EventArgs e)
+        {
+            frmMain frmMain = new frmMain();
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+
+            string queryCheckCustomerExists = $"SELECT * FROM tblCustomers WHERE EmailAddress = '{emailAddressTxt.Text}'";
+            SDA2 = new SqlDataAdapter(queryCheckCustomerExists, con);
+            DataTable CustomerExistsDT = new DataTable();
+            SDA2.Fill(CustomerExistsDT);
+
+            if (CustomerExistsDT.Rows.Count == 0)
+            {
+                string query = $"INSERT INTO tblCustomers (EmailAddress, Forename, Surname) VALUES('{emailAddressTxt.Text}', '{forenameTxt.Text}', '{surnameTxt.Text}'); ";
+                SqlCommand newCustomer = new SqlCommand(query, con);
+                newCustomer.ExecuteNonQuery();
+            }
+
+
+            char[] Char = { '£' };
+            string totalPriceStr = lblTotalAmount.Text.TrimStart(Char); //removes the pound sign from the price, so it can be parsed to a float value
+
+            var dateAndTime = DateTime.Now;
+
+            string query2 = $"INSERT INTO tblReceipts (OrderID, TotalOrderPrice, EmailAddress, DateAndTime) VALUES('{frmMain.OrderID}', '{float.Parse(totalPriceStr)}', '{emailAddressTxt.Text}', '{DateTime.Now}'); ";
+            SqlCommand myCommandInsert = new SqlCommand(query2, con);
+            myCommandInsert.ExecuteNonQuery();
+
+
+            string queryItemID = $"SELECT * FROM tblCurrentOrder WHERE OrderID = '{frmMain.OrderID}' ;";
+            SDA2 = new SqlDataAdapter(queryItemID, con);
+            DataTable ItemIDDT = new DataTable();
+            SDA2.Fill(ItemIDDT);
+
+            int itemIDInt = int.Parse(ItemIDDT.Rows[0][0].ToString());
+            int itemQuantityInt = int.Parse(ItemIDDT.Rows[0][2].ToString());
+            float itemTotalPriceInt = float.Parse(ItemIDDT.Rows[0][3].ToString());
+            float totalOrderPrice = 0;
+
+            foreach (DataRow row in ItemIDDT.Rows)
+            {
+                itemIDInt = int.Parse(row[0].ToString());
+                itemQuantityInt = int.Parse(row[2].ToString());
+                itemTotalPriceInt = float.Parse(row[3].ToString());
+                query2 = $"UPDATE tblCurrentOrder SET ItemQuantity = '{itemQuantityInt}', ItemTotalPrice = '{itemTotalPriceInt}' WHERE ItemID = {itemIDInt} AND OrderID = {OrderIDPublic}; ";
+                myCommandInsert = new SqlCommand(query2, con);
+                myCommandInsert.ExecuteNonQuery();
+                totalOrderPrice += itemTotalPriceInt;
             }
 
 
@@ -273,12 +250,17 @@ namespace AbbeyFarmPOS
                                 break;
                         }
 
-                        if (i != 1)
+                        if (i != 1 & i != 3)
                         {
                             receipt += " " + (row[i].ToString());
                             receipt += "\n";
 
-                        } else
+                        } else if (i == 3)
+                        {
+                            receipt += " £" + Math.Round((float.Parse(row[i].ToString())),2);
+                            receipt += "\n";
+                        }
+                        else
                         {
                             receipt += "";
                         }
@@ -286,6 +268,7 @@ namespace AbbeyFarmPOS
 
                     receipt += "\n";
                 }
+                receipt += $"{dateAndTime.ToString()}";
 
 
 
@@ -312,6 +295,22 @@ namespace AbbeyFarmPOS
             SqlDataAdapter SDA = new SqlDataAdapter(queryChangeOrderID, con);
             DataTable ReceiptDT = new DataTable();
             SDA.Fill(ReceiptDT);
+
+
+
+            SqlCommand comm = new SqlCommand($"SELECT COUNT(OrderID) FROM tblReceipts WHERE EmailAddress = '{emailAddressTxt.Text}'", con);
+            Int32 amountOfTransactions = (Int32)comm.ExecuteScalar();
+
+
+            SqlCommand comm2 = new SqlCommand($"SELECT SUM(TotalOrderPrice) FROM tblReceipts WHERE EmailAddress = '{emailAddressTxt.Text}'", con);
+            object totalSpent = comm2.ExecuteScalar();
+            string totalSpentStr = totalSpent.ToString();
+            float totalSpentFloat = float.Parse(totalSpentStr);
+
+
+            query2 = $"UPDATE tblCustomers SET TotalSpent = {totalSpentFloat} + {totalOrderPrice}, AmountOfTransactions = {amountOfTransactions} + 1 WHERE EmailAddress = '{emailAddressTxt.Text}';";
+            myCommandInsert = new SqlCommand(query2, con);
+            myCommandInsert.ExecuteNonQuery();
 
             int orderIDChanged = 0;
 

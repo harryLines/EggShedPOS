@@ -105,9 +105,27 @@ namespace AbbeyFarmPOS
 			DataTable QuanDT = new DataTable();
 			string queryQuan = $"SELECT QuantityInStock FROM tblItems WHERE ItemID = {txtBoxItemID.Text}";
 			SqlDataAdapter SDAQuan = new SqlDataAdapter(queryQuan, con);
-			SDAQuan.Fill(QuanDT);
 
-			int quantityInStock = int.Parse(QuanDT.Rows[0]["QuantityInStock"].ToString());
+			try
+			{
+				SDAQuan.Fill(QuanDT);
+			}
+			catch (Exception ex)
+            {
+				MessageBox.Show("Invalid Input", "Market Order Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			int quantityInStock = 0;
+
+			if (QuanDT.Rows.Count == 0)
+            {
+				MessageBox.Show("Invalid Item ID", "Market Order Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			} else
+            {
+				quantityInStock = int.Parse(QuanDT.Rows[0]["QuantityInStock"].ToString());
+			}
 
 			if (numericUpDownQuantity.Value > quantityInStock)
 			{

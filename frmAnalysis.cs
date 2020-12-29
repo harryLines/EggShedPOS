@@ -48,7 +48,30 @@ namespace AbbeyFarmPOS
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             SqlDataAdapter SDA = new SqlDataAdapter();
 
-            string sortByMode = "ASC";
+            string timeFrameChoice = "";
+
+            //if (timeFrameChoiceComboBox.SelectedItem.ToString() == "Week")
+            //{
+            //    timeFrameChoice = "AND DateAndTime BETWEEN GETDATE() AND DATEADD(day,7,GETDATE())";
+            //} else if (timeFrameChoiceComboBox.SelectedItem.ToString() == "2 Weeks")
+            //{
+            //    timeFrameChoice = "AND DateAndTime BETWEEN GETDATE() AND DATEADD(week,2,GETDATE())";
+            //} else if (timeFrameChoiceComboBox.SelectedItem.ToString() == "Month")
+            //{
+            //    timeFrameChoice = "AND DateAndTime BETWEEN GETDATE() AND DATEADD(month,1,GETDATE())";
+            //} else if (timeFrameChoiceComboBox.SelectedItem.ToString() == "3 Months")
+            //{
+            //    timeFrameChoice = "AND DateAndTime BETWEEN GETDATE() AND DATEADD(month,3,GETDATE())";
+            //} else if (timeFrameChoiceComboBox.SelectedItem.ToString() == "6 Months")
+            //{
+            //    timeFrameChoice = "AND DateAndTime BETWEEN GETDATE() AND DATEADD(month,6,GETDATE())";
+            //} else if (timeFrameChoiceComboBox.SelectedItem.ToString() == "Year")
+            //{
+            //    timeFrameChoice = "AND DateAndTime BETWEEN GETDATE() AND DATEADD(month,12,GETDATE())";
+            //}
+
+
+                string sortByMode = "ASC";
 
             if (sortByComboBox.SelectedIndex == -1 | sortByComboBox.SelectedIndex == 0)
             {
@@ -237,17 +260,39 @@ namespace AbbeyFarmPOS
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Users\user\source\repos\AbbeyFarmPOS\AbbeyFarmDB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
 
+            DataTable ItemDT = new DataTable();
+            string queryItemExists = $"SELECT * FROM tblItems WHERE ItemID = {txtBoxItemIDRestock.Text}";
+            SqlDataAdapter SDAItemExists = new SqlDataAdapter(queryItemExists, con);
+            SDAItemExists.Fill(ItemDT);
+
+            if (ItemDT.Rows.Count == 0)
+            {
+                MessageBox.Show("Item Does Not Exist", "Item Restock Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                lblItemRestocked.Visible = true;
+                itemRestockedTimer.Enabled = true;
+
+                numericUpDownRestock.Value = 0;
+                txtBoxItemIDRestock.Text = "";
+            }
+
             string query = $"UPDATE tblItems SET QuantityInStock = QuantityInStock + {numericUpDownRestock.Value} WHERE ItemID = {int.Parse(txtBoxItemIDRestock.Text)}"; //updates the stock count of the item matching the input item ID, to the current value plus the value selected in the updown number box
             SqlCommand myCommand = new SqlCommand(query, con);
-            myCommand.ExecuteNonQuery();
-
-            lblItemRestocked.Visible = true;
-            itemRestockedTimer.Enabled = true;
-
-            numericUpDownRestock.Value = 0;
-            txtBoxItemIDRestock.Text = "";
 
 
+
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Invalid Item ID", "Input Error", MessageBoxButtons.OK);
+                return;
+            }
         }
 
         private void timerRestockTick(object sender, EventArgs e)
@@ -299,6 +344,16 @@ namespace AbbeyFarmPOS
         }
 
         private void txtBoxQuantityInStock_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timeFrameChoiceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
